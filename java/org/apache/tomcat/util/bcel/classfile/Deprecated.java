@@ -20,6 +20,8 @@ package org.apache.tomcat.util.bcel.classfile;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+
+import org.apache.tomcat.util.bcel.ArrayConstants;
 import org.apache.tomcat.util.bcel.Constants;
 
 /**
@@ -94,7 +96,7 @@ public final class Deprecated extends Attribute {
      * @return attribute name
      */
     public final String toString() {
-        return Constants.ATTRIBUTE_NAMES[Constants.ATTR_DEPRECATED];
+        return ArrayConstants.getAttributeNames()[Constants.ATTR_DEPRECATED];
     }
 
 

@@ -20,6 +20,8 @@ package org.apache.tomcat.util.bcel.classfile;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.Serializable;
+
+import org.apache.tomcat.util.bcel.ArrayConstants;
 import org.apache.tomcat.util.bcel.Constants;
 
 /**
@@ -212,7 +214,7 @@ public class ConstantPool implements Cloneable, Serializable {
             throw new ClassFormatException("Constant pool at index " + index + " is null.");
         }
         if (c.getTag() != tag) {
-            throw new ClassFormatException("Expected class `" + Constants.CONSTANT_NAMES[tag]
+            throw new ClassFormatException("Expected class `" + ArrayConstants.getConstantNames()[tag]
                     + "' at index " + index + " and got " + c);
         }
         return c;

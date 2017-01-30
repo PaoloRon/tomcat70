@@ -23,6 +23,8 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+
+import org.apache.tomcat.util.bcel.ArrayConstants;
 import org.apache.tomcat.util.bcel.Constants;
 import org.apache.tomcat.util.bcel.classfile.ConstantUtf8;
 
@@ -116,7 +118,7 @@ public abstract class Attribute implements Cloneable, Serializable
 		// System.out.println(name);
 		for (byte i = 0; i < Constants.KNOWN_ATTRIBUTES; i++)
 		{
-			if (name.equals(Constants.ATTRIBUTE_NAMES[i]))
+			if (name.equals(ArrayConstants.getAttributeNames()[i]))
 			{
 				tag = i; // found!
 				break;
@@ -246,6 +248,6 @@ public abstract class Attribute implements Cloneable, Serializable
 	 */
 	public String toString()
 	{
-		return Constants.ATTRIBUTE_NAMES[tag];
+		return ArrayConstants.getAttributeNames()[tag];
 	}
 }

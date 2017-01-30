@@ -21,6 +21,8 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.Serializable;
+
+import org.apache.tomcat.util.bcel.ArrayConstants;
 import org.apache.tomcat.util.bcel.Constants;
 import org.apache.tomcat.util.bcel.util.BCELComparator;
 
@@ -80,7 +82,7 @@ public abstract class Constant implements Cloneable, Serializable {
      * @return String representation.
      */
     public String toString() {
-        return Constants.CONSTANT_NAMES[tag] + "[" + tag + "]";
+        return ArrayConstants.getConstantNames()[tag] + "[" + tag + "]";
     }
 
 
