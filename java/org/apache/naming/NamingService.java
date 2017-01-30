@@ -112,7 +112,7 @@ public final class NamingService
      * Returns a String representation of the state.
      */
     public String getStateString() {
-        return states[state];
+        return NamingServiceStates.getStates()[state];
     }
     
     
