@@ -33,6 +33,7 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.SSLSocket;
 import javax.security.cert.X509Certificate;
 
+import org.apache.tomcat.util.net.SSLCiphers;
 import org.apache.tomcat.util.net.SSLSessionManager;
 import org.apache.tomcat.util.net.SSLSupport;
 
@@ -198,7 +199,7 @@ class JSSESupport implements SSLSupport, SSLSessionManager {
     public Integer getKeySize() 
         throws IOException {
         // Look up the current SSLSession
-        SSLSupport.CipherData c_aux[]=ciphers;
+        SSLSupport.CipherData c_aux[]=SSLCiphers.getCiphers();
         if (session == null)
             return null;
         
