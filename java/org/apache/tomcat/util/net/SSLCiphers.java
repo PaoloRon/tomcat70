@@ -1,5 +1,7 @@
 package org.apache.tomcat.util.net;
 
+import org.apache.tomcat.util.net.SSLSupport.CipherData;
+
 public class SSLCiphers {
 
 	/**
@@ -7,7 +9,7 @@ public class SSLCiphers {
 	 * when using a cipher suite containing the specified cipher name.  The
 	 * underlying data came from the TLS Specification (RFC 2246), Appendix C.
 	 */
-	 private final static SSLSupport.CipherData ciphers[] = {
+	 private static final CipherData[] ciphers = {
 	    new SSLSupport.CipherData("_WITH_NULL_", 0),
 	    new SSLSupport.CipherData("_WITH_IDEA_CBC_", 128),
 	    new SSLSupport.CipherData("_WITH_RC2_CBC_40_", 40),
