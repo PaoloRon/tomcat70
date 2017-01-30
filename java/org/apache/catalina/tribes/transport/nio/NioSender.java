@@ -174,8 +174,8 @@ public class NioSender extends AbstractSender {
         readbuf.clear();
         if (ackbuf.doesPackageExist() ) {
             byte[] ackcmd = ackbuf.extractDataPackage(true).getBytes();
-            boolean ack = Arrays.equals(ackcmd,org.apache.catalina.tribes.transport.Constants.ACK_DATA);
-            boolean fack = Arrays.equals(ackcmd,org.apache.catalina.tribes.transport.Constants.FAIL_ACK_DATA);
+            boolean ack = Arrays.equals(ackcmd,org.apache.catalina.tribes.transport.Constants.getAckData());
+            boolean fack = Arrays.equals(ackcmd,org.apache.catalina.tribes.transport.Constants.getFailAckData());
             if ( fack && getThrowOnFailedAck() ) throw new RemoteProcessException("Received a failed ack:org.apache.catalina.tribes.transport.Constants.FAIL_ACK_DATA");
             return ack || fack;
         } else {

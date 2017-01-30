@@ -8,6 +8,10 @@ public class MemberShutdownPayload {
 	 */
 	private static final byte[] SHUTDOWN_PAYLOAD = new byte[] {66, 65, 66, 89, 45, 65, 76, 69, 88};
 
+	private MemberShutdownPayload() {
+		super();
+	}
+
 	public static byte[] getShutdownPayload() {
 		return SHUTDOWN_PAYLOAD;
 	}

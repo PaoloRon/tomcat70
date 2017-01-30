@@ -35,9 +35,18 @@ public class Constants {
     /*
      * Do not change any of these values!
      */
-    public static final byte[] ACK_DATA = new byte[] {6, 2, 3};
-    public static final byte[] FAIL_ACK_DATA = new byte[] {11, 0, 5};
+    protected static final byte[] ACK_DATA = new byte[] {6, 2, 3};
+	protected static final byte[] FAIL_ACK_DATA = new byte[] {11, 0, 5};
     public static final byte[] ACK_COMMAND = XByteBuffer.createDataPackage(ACK_DATA);
     public static final byte[] FAIL_ACK_COMMAND = XByteBuffer.createDataPackage(FAIL_ACK_DATA);
+    
+
+    public static byte[] getAckData() {
+		return ACK_DATA;
+	}
+    
+	public static byte[] getFailAckData() {
+		return FAIL_ACK_DATA;
+	}
 
 }

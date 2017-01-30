@@ -36,7 +36,6 @@ public interface Member {
     /**
 	 * When a member leaves the cluster, the payload of the memberDisappeared member
 	 * will be the following bytes. This indicates a soft shutdown, and not a crash
-	 * @deprecated Use {@link MemberShutdownPayload#SHUTDOWN_PAYLOAD} instead
 	 */
 	final byte[] SHUTDOWN_PAYLOAD = MemberShutdownPayload.getShutdownPayload();
 

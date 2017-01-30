@@ -270,8 +270,8 @@ public class BioSender extends AbstractSender {
                 ackbuf.append(d);
                 if (ackbuf.doesPackageExist() ) {
                     byte[] ackcmd = ackbuf.extractDataPackage(true).getBytes();
-                    ackReceived = Arrays.equals(ackcmd,org.apache.catalina.tribes.transport.Constants.ACK_DATA);
-                    failAckReceived = Arrays.equals(ackcmd,org.apache.catalina.tribes.transport.Constants.FAIL_ACK_DATA);
+                    ackReceived = Arrays.equals(ackcmd,org.apache.catalina.tribes.transport.Constants.getAckData());
+                    failAckReceived = Arrays.equals(ackcmd,org.apache.catalina.tribes.transport.Constants.getFailAckData());
                     ackReceived = ackReceived || failAckReceived;
                     break;
                 }

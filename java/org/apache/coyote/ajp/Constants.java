@@ -120,7 +120,7 @@ public final class Constants {
     public static final int  MAX_SEND_SIZE = MAX_PACKET_SIZE - SEND_HEAD_LEN;
 
     // Translates integer codes to names of HTTP methods
-    public static final String []methodTransArray = {
+    protected static final String []methodTransArray = {
             "OPTIONS",
             "GET",
             "HEAD",
@@ -170,7 +170,7 @@ public final class Constants {
     public static final byte SC_A_SSL_KEY_SIZE  = 11; // XXX ???
 
     // Translates integer codes to request header names
-    public static final String []headerTransArray = {
+    protected static final String []headerTransArray = {
             "accept",
             "accept-charset",
             "accept-encoding",
@@ -188,7 +188,7 @@ public final class Constants {
     };
 
     // Translates integer codes to response header names
-    public static final String []responseTransArray = {
+    protected static final String []responseTransArray = {
             "Content-Type",
             "Content-Language",
             "Content-Length",
