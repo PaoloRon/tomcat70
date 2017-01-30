@@ -1,6 +1,7 @@
 package org.apache.el.parser;
 
 public class ELJjtNodeName {
+
 	private static String[] jjtNodeName = {
 		    "CompositeExpression",
 		    "LiteralExpression",
@@ -38,6 +39,11 @@ public class ELJjtNodeName {
 		    "Null",
 		  };
 
+
+	private ELJjtNodeName() {
+		super();
+	}
+	
 	public static String[] getJjtNodeName() {
 		return jjtNodeName;
 	}

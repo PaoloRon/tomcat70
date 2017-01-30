@@ -8,6 +8,10 @@ public class NamingServiceStates {
 	private static final String[] states = 
 	{"Stopped", "Stopping", "Starting", "Started"};
 
+	private NamingServiceStates() {
+		super();
+	}
+
 	public static String[] getStates() {
 		return states;
 	}

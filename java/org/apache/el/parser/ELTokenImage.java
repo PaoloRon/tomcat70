@@ -61,6 +61,10 @@ public class ELTokenImage {
 		    "<ILLEGAL_CHARACTER>",
 		  };
 
+	private ELTokenImage() {
+		super();
+	}
+
 	public static String[] getTokenImage() {
 		return tokenImage;
 	}

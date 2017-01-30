@@ -3,11 +3,11 @@ package org.apache.tomcat.util.bcel;
 public class ArrayConstants {
 
 	/** The names of the access flags. */
-	private final static String[] ACCESS_NAMES = { "public", "private", "protected", "static", "final", "synchronized",
+	private static final String[] ACCESS_NAMES = { "public", "private", "protected", "static", "final", "synchronized",
 			"volatile", "transient", "native", "interface", "abstract", "strictfp", "synthetic", "annotation", "enum" };
 
 	/** The names of the types of entries in a constant pool. */
-	private final static String[] CONSTANT_NAMES = { "", "CONSTANT_Utf8", "", "CONSTANT_Integer", "CONSTANT_Float",
+	private static final String[] CONSTANT_NAMES = { "", "CONSTANT_Utf8", "", "CONSTANT_Integer", "CONSTANT_Float",
 			"CONSTANT_Long", "CONSTANT_Double", "CONSTANT_Class", "CONSTANT_String", "CONSTANT_Fieldref",
 			"CONSTANT_Methodref", "CONSTANT_InterfaceMethodref", "CONSTANT_NameAndType" };
 
