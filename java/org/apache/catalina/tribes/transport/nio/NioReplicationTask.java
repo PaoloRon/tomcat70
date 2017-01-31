@@ -201,7 +201,7 @@ public class NioReplicationTask extends AbstractRxTask {
              * server before completing the request
              * This is considered an asynchronized request
              */
-            if (ChannelData.sendAckAsync(msgs[i].getOptions())) sendAck(key,(WritableByteChannel)channel,Constants.ACK_COMMAND,saddr);
+            if (ChannelData.sendAckAsync(msgs[i].getOptions())) sendAck(key,(WritableByteChannel)channel,Constants.getAckCommand(),saddr);
             try {
                 if ( Logs.MESSAGES.isTraceEnabled() ) {
                     try {
@@ -215,13 +215,13 @@ public class NioReplicationTask extends AbstractRxTask {
                  * server before sending the ack to the remote server
                  * This is considered a synchronized request
                  */
-                if (ChannelData.sendAckSync(msgs[i].getOptions())) sendAck(key,(WritableByteChannel)channel,Constants.ACK_COMMAND,saddr);
+                if (ChannelData.sendAckSync(msgs[i].getOptions())) sendAck(key,(WritableByteChannel)channel,Constants.getAckCommand(),saddr);
             }catch ( RemoteProcessException e ) {
                 if ( log.isDebugEnabled() ) log.error("Processing of cluster message failed.",e);
-                if (ChannelData.sendAckSync(msgs[i].getOptions())) sendAck(key,(WritableByteChannel)channel,Constants.FAIL_ACK_COMMAND,saddr);
+                if (ChannelData.sendAckSync(msgs[i].getOptions())) sendAck(key,(WritableByteChannel)channel,Constants.getFailAckCommand(),saddr);
             }catch ( Exception e ) {
                 log.error("Processing of cluster message failed.",e);
-                if (ChannelData.sendAckSync(msgs[i].getOptions())) sendAck(key,(WritableByteChannel)channel,Constants.FAIL_ACK_COMMAND,saddr);
+                if (ChannelData.sendAckSync(msgs[i].getOptions())) sendAck(key,(WritableByteChannel)channel,Constants.getFailAckCommand(),saddr);
             }
             if ( getUseBufferPool() ) {
                 BufferPool.getBufferPool().returnBuffer(msgs[i].getMessage());

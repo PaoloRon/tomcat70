@@ -65,7 +65,7 @@ public class BioSender extends AbstractSender {
     private OutputStream soOut = null;
     private InputStream soIn = null;
     
-    protected XByteBuffer ackbuf = new XByteBuffer(Constants.ACK_COMMAND.length,true);
+    protected XByteBuffer ackbuf = new XByteBuffer(Constants.getAckCommand().length,true);
 
 
     // ------------------------------------------------------------- Constructor
@@ -264,7 +264,7 @@ public class BioSender extends AbstractSender {
             ackbuf.clear();
             int bytesRead = 0;
             int i = soIn.read();
-            while ((i != -1) && (bytesRead < Constants.ACK_COMMAND.length)) {
+            while ((i != -1) && (bytesRead < Constants.getAckCommand().length)) {
                 bytesRead++;
                 byte d = (byte)i;
                 ackbuf.append(d);

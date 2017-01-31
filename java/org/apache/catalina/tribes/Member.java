@@ -34,12 +34,6 @@ package org.apache.catalina.tribes;
 public interface Member {
 
     /**
-	 * When a member leaves the cluster, the payload of the memberDisappeared member
-	 * will be the following bytes. This indicates a soft shutdown, and not a crash
-	 */
-	final byte[] SHUTDOWN_PAYLOAD = MemberShutdownPayload.getShutdownPayload();
-
-    /**
      * Returns the name of this node, should be unique within the group.
      */
     public String getName();

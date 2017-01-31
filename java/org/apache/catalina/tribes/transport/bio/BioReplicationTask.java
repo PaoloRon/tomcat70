@@ -92,7 +92,7 @@ public class BioReplicationTask extends AbstractRxTask {
                  * server before completing the request
                  * This is considered an asynchronized request
                  */
-                if (ChannelData.sendAckAsync(msgs[i].getOptions())) sendAck(Constants.ACK_COMMAND);
+                if (ChannelData.sendAckAsync(msgs[i].getOptions())) sendAck(Constants.getAckCommand());
                 try {
                     //process the message
                     getCallback().messageDataReceived(msgs[i]);
@@ -101,9 +101,9 @@ public class BioReplicationTask extends AbstractRxTask {
                      * server before sending the ack to the remote server
                      * This is considered a synchronized request
                      */
-                    if (ChannelData.sendAckSync(msgs[i].getOptions())) sendAck(Constants.ACK_COMMAND);
+                    if (ChannelData.sendAckSync(msgs[i].getOptions())) sendAck(Constants.getAckCommand());
                 }catch  ( Exception x ) {
-                    if (ChannelData.sendAckSync(msgs[i].getOptions())) sendAck(Constants.FAIL_ACK_COMMAND);
+                    if (ChannelData.sendAckSync(msgs[i].getOptions())) sendAck(Constants.getFailAckCommand());
                     log.error("Error thrown from messageDataReceived.",x);
                 }
                 if ( getUseBufferPool() ) {
