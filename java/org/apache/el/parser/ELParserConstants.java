@@ -120,7 +120,4 @@ public interface ELParserConstants {
   /** Lexical state. */
   int IN_EXPRESSION = 1;
 
-  /** Literal token values. */
-  String[] tokenImage = ELTokenImage.getTokenImage();
-
 }

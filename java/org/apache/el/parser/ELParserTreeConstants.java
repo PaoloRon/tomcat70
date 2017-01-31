@@ -38,7 +38,5 @@ public interface ELParserTreeConstants
   public int JJTSTRING = 32;
   public int JJTNULL = 33;
 
-
-  public static String[] jjtNodeName = ELJjtNodeName.getJjtNodeName();
 }
 /* JavaCC - OriginalChecksum=437008e736f149e8fa6712fb36d831a1 (do not edit this line) */

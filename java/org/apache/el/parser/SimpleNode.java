@@ -92,10 +92,10 @@ public abstract class SimpleNode extends ELSupport implements Node {
     @Override
     public String toString() {
         if (this.image != null) {
-            return ELParserTreeConstants.jjtNodeName[id] + "[" + this.image
+            return ELJjtNodeName.getJjtNodeName()[id] + "[" + this.image
                     + "]";
         }
-        return ELParserTreeConstants.jjtNodeName[id];
+        return ELJjtNodeName.getJjtNodeName()[id];
     }
 
     public String toString(String prefix) {

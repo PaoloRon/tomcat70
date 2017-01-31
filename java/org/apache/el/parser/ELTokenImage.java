@@ -1,6 +1,9 @@
 package org.apache.el.parser;
 
 public class ELTokenImage {
+
+	 /** Literal token values. */
+	
 	private static String[] tokenImage = {
 		    "<EOF>",
 		    "<LITERAL_EXPRESSION>",
