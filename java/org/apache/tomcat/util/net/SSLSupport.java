@@ -55,14 +55,6 @@ public interface SSLSupport {
     public static final String SESSION_MGR =
         "javax.servlet.request.ssl_session_mgr";
 
-    
-    /**
-	 * A mapping table to determine the number of effective bits in the key
-	 * when using a cipher suite containing the specified cipher name.  The
-	 * underlying data came from the TLS Specification (RFC 2246), Appendix C.
-	 */
-	 static final CipherData[] ciphers = SSLCiphers.getCiphers();
-
     /**
      * The cipher suite being used on this connection.
      */

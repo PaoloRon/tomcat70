@@ -56,9 +56,6 @@ public interface Constants {
    */
   public final static short MAX_ACC_FLAG     = ACC_ENUM;
 
-  /** The names of the access flags. */
-  public final static String[] ACCESS_NAMES = ArrayConstants.getAccessNames();
-
   /** Marks a constant pool entry as type UTF-8.  */
   public final static byte CONSTANT_Utf8               = 1;
 
@@ -91,9 +88,6 @@ public interface Constants {
 
   /** Marks a constant pool entry as a name and type.  */
   public final static byte CONSTANT_NameAndType        = 12;
-
-  /** The names of the types of entries in a constant pool. */
-  public final static String[] CONSTANT_NAMES = ArrayConstants.getConstantNames();
   
   /** Java VM opcode.
    * @see <a href="http://java.sun.com/docs/books/jvms/second_edition/html/Instructions2.doc.html">Opcode definitions in The Java Virtual Machine Specification</a> */
@@ -280,36 +274,7 @@ public interface Constants {
   
   /** Unknown data type. */
   public static final byte T_UNKNOWN   = 15;
-
-  /** The primitive type names corresponding to the T_XX constants,
-   * e.g., TYPE_NAMES[T_INT] = "int"
-   */
-  public static final String[] TYPE_NAMES = ArrayConstants.getTypeNames();
-
-  
-
-  /**
-   * Number of byte code operands for each opcode, i.e., number of bytes after the tag byte
-   * itself.  Indexed by opcode, so NO_OF_OPERANDS[BIPUSH] = the number of operands for a bipush
-   * instruction.
-   */
-  public static final short[] NO_OF_OPERANDS = ArrayConstants.getNoOfOperands();
-
-  /**
-   * How the byte code operands are to be interpreted for each opcode.
-   * Indexed by opcode.  TYPE_OF_OPERANDS[ILOAD] = an array of shorts
-   * describing the data types for the instruction.
-   */
-  public static final short[][] TYPE_OF_OPERANDS = ArrayConstants.getTypeOfOperands();
-
-  /**
-   * Names of opcodes.  Indexed by opcode.  OPCODE_NAMES[ALOAD] = "aload".
-   */ 
-  public static final String[] OPCODE_NAMES = ArrayConstants.getOpcodeNames();
-
-  
-
-  
+   
 
   /** Attributes and their corresponding names.
    */
@@ -337,16 +302,11 @@ public interface Constants {
 
   public static final short KNOWN_ATTRIBUTES = 20;
 
-  // TOFO: FIXXXXX
-  public static final String[] ATTRIBUTE_NAMES = ArrayConstants.getAttributeNames();
-
   /** Constants used in the StackMap attribute.
    */
   public static final byte ITEM_Bogus      = 0;
   public static final byte ITEM_Object     = 7;
   public static final byte ITEM_NewObject  = 8;
-
-  public static final String[] ITEM_NAMES = ArrayConstants.getItemNames();
   
   /** Constants used to identify StackMapEntry types.
    * 
