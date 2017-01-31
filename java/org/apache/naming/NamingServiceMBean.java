@@ -27,12 +27,6 @@ package org.apache.naming;
 public interface NamingServiceMBean {
 
 	// -------------------------------------------------------------- Constants
-
-	/**
-	 * Status constants.
-	 */
-	public static final String[] states = NamingServiceStates.getStates();
-
 	public static final int STOPPED = 0;
 	public static final int STOPPING = 1;
 	public static final int STARTING = 2;
