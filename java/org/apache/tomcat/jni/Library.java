@@ -111,48 +111,80 @@ public final class Library {
     public static native String aprVersionString();
 
     /*  APR Feature Macros */
-    public static boolean APR_HAVE_IPV6           = false;
-    public static boolean APR_HAS_SHARED_MEMORY   = false;
-    public static boolean APR_HAS_THREADS         = false;
-    public static boolean APR_HAS_SENDFILE        = false;
-    public static boolean APR_HAS_MMAP            = false;
-    public static boolean APR_HAS_FORK            = false;
-    public static boolean APR_HAS_RANDOM          = false;
-    public static boolean APR_HAS_OTHER_CHILD     = false;
-    public static boolean APR_HAS_DSO             = false;
-    public static boolean APR_HAS_SO_ACCEPTFILTER = false;
-    public static boolean APR_HAS_UNICODE_FS      = false;
-    public static boolean APR_HAS_PROC_INVOKED    = false;
-    public static boolean APR_HAS_USER            = false;
-    public static boolean APR_HAS_LARGE_FILES     = false;
-    public static boolean APR_HAS_XTHREAD_FILES   = false;
-    public static boolean APR_HAS_OS_UUID         = false;
+    protected static boolean APR_HAVE_IPV6             = false;
+    protected static boolean APR_HAS_SHARED_MEMORY     = false;
+    protected static boolean APR_HAS_THREADS           = false;
+    protected static boolean APR_HAS_SENDFILE          = false;
+    protected static boolean APR_HAS_MMAP              = false;
+    protected static boolean APR_HAS_FORK              = false;
+    protected static boolean APR_HAS_RANDOM            = false;
+    protected static boolean APR_HAS_OTHER_CHILD       = false;
+    protected static boolean APR_HAS_DSO               = false;
+    protected static boolean APR_HAS_SO_ACCEPTFILTER   = false;
+    protected static boolean APR_HAS_UNICODE_FS        = false;
+    protected static boolean APR_HAS_PROC_INVOKED      = false;
+    protected static boolean APR_HAS_USER              = false;
+    protected static boolean APR_HAS_LARGE_FILES       = false;
+    protected static boolean APR_HAS_XTHREAD_FILES     = false;
+    protected static boolean APR_HAS_OS_UUID           = false;
     /* Are we big endian? */
-    public static boolean APR_IS_BIGENDIAN        = false;
+    protected static boolean APR_IS_BIGENDIAN          = false;
     /* APR sets APR_FILES_AS_SOCKETS to 1 on systems where it is possible
      * to poll on files/pipes.
      */
-    public static boolean APR_FILES_AS_SOCKETS    = false;
+    protected static boolean APR_FILES_AS_SOCKETS      = false;
     /* This macro indicates whether or not EBCDIC is the native character set.
      */
-    public static boolean APR_CHARSET_EBCDIC      = false;
+    protected static boolean APR_CHARSET_EBCDIC        = false;
     /* Is the TCP_NODELAY socket option inherited from listening sockets?
      */
-    public static boolean APR_TCP_NODELAY_INHERITED = false;
+    protected static boolean APR_TCP_NODELAY_INHERITED = false;
     /* Is the O_NONBLOCK flag inherited from listening sockets?
      */
-    public static boolean APR_O_NONBLOCK_INHERITED  = false;
+    protected static boolean APR_O_NONBLOCK_INHERITED  = false;
 
 
-    public static int APR_SIZEOF_VOIDP;
-    public static int APR_PATH_MAX;
-    public static int APRMAXHOSTLEN;
-    public static int APR_MAX_IOVEC_SIZE;
-    public static int APR_MAX_SECS_TO_LINGER;
-    public static int APR_MMAP_THRESHOLD;
-    public static int APR_MMAP_LIMIT;
+    protected static int APR_SIZEOF_VOIDP;
+    protected static int APR_PATH_MAX;
+    protected static int APRMAXHOSTLEN;
+    protected static int APR_MAX_IOVEC_SIZE;
+    protected static int APR_MAX_SECS_TO_LINGER;
+    protected static int APR_MMAP_THRESHOLD;
+    protected static int APR_MMAP_LIMIT;
 
-    /* return global TCN's APR pool */
+    public static boolean aprHaveIPV6() {
+		return APR_HAVE_IPV6;
+	}
+
+	public static void setAprHaveIPV6(boolean aprHaveIPV6) {
+		APR_HAVE_IPV6 = aprHaveIPV6;
+	}
+
+	public static boolean aprHasSendfile() {
+		return APR_HAS_SENDFILE;
+	}
+
+	public static void setAprHasSendfile(boolean aprHasSenfile) {
+		APR_HAS_SENDFILE = aprHasSenfile;
+	}
+
+	public static boolean aprHasRandom() {
+		return APR_HAS_RANDOM;
+	}
+
+	public static void setAprHasRandom(boolean aprHasRandom) {
+		APR_HAS_RANDOM = aprHasRandom;
+	}
+
+	public static boolean aprHasSOAcceptfilter() {
+		return APR_HAS_SO_ACCEPTFILTER;
+	}
+
+	public static void setAprHasSOAcceptfilter(boolean aprHasSOAcceptfilter) {
+		APR_HAS_SO_ACCEPTFILTER = aprHasSOAcceptfilter;
+	}
+
+	/* return global TCN's APR pool */
     public static native long globalPool();
 
     /**
