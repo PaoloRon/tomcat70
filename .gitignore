@@ -1,0 +1,7 @@
+eclipse
+output
+.classpath
+.project
+.settings
+.sonar_lock
+report-task.txt
