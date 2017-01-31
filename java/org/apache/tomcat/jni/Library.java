@@ -89,21 +89,21 @@ public final class Library {
     private static native int size(int what);
 
     /* TCN_MAJOR_VERSION */
-    public static int TCN_MAJOR_VERSION  = 0;
+    protected static int TCN_MAJOR_VERSION  = 0;
     /* TCN_MINOR_VERSION */
-    public static int TCN_MINOR_VERSION  = 0;
+    protected static int TCN_MINOR_VERSION  = 0;
     /* TCN_PATCH_VERSION */
-    public static int TCN_PATCH_VERSION  = 0;
+    protected static int TCN_PATCH_VERSION  = 0;
     /* TCN_IS_DEV_VERSION */
-    public static int TCN_IS_DEV_VERSION = 0;
+    protected static int TCN_IS_DEV_VERSION = 0;
     /* APR_MAJOR_VERSION */
-    public static int APR_MAJOR_VERSION  = 0;
+    protected static int APR_MAJOR_VERSION  = 0;
     /* APR_MINOR_VERSION */
-    public static int APR_MINOR_VERSION  = 0;
+    protected static int APR_MINOR_VERSION  = 0;
     /* APR_PATCH_VERSION */
-    public static int APR_PATCH_VERSION  = 0;
+    protected static int APR_PATCH_VERSION  = 0;
     /* APR_IS_DEV_VERSION */
-    public static int APR_IS_DEV_VERSION = 0;
+    protected static int APR_IS_DEV_VERSION = 0;
 
     /* TCN_VERSION_STRING */
     public static native String versionString();
