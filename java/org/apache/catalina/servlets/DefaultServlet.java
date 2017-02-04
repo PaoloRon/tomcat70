@@ -2186,9 +2186,9 @@ public class DefaultServlet
 
     protected class Range {
 
-        public long start;
-        public long end;
-        public long length;
+        protected long start;
+        protected long end;
+        protected long length;
 
         /**
          * Validate range.
