@@ -28,7 +28,7 @@ public class Proxy {
 
   protected enum State { OK, ERROR, DOWN };
 
-  public InetAddress address = null;
-  public int port = 80;
-  public State state = State.OK;
+  protected InetAddress address = null;
+  protected int port = 80;
+  protected State state = State.OK;
 }
