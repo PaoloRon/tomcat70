@@ -158,7 +158,7 @@ public class WebappClassLoader
     protected final class PrivilegedGetClassLoader
         implements PrivilegedAction<ClassLoader> {
 
-        public Class<?> clazz;
+    	protected Class<?> clazz;
 
         public PrivilegedGetClassLoader(Class<?> clazz){
             this.clazz = clazz;
