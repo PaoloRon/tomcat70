@@ -92,7 +92,7 @@ public final class Response {
     /**
      * Action hook.
      */
-    public ActionHook hook;
+    protected ActionHook hook;
 
 
     /**
