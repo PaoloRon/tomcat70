@@ -1579,8 +1579,8 @@ public class ApplicationContext
      */
     private static final class DispatchData {
 
-        public MessageBytes uriMB;
-        public MappingData mappingData;
+        protected MessageBytes uriMB;
+        protected MappingData mappingData;
 
         public DispatchData() {
             uriMB = MessageBytes.newInstance();
