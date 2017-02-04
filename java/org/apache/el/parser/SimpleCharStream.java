@@ -15,7 +15,7 @@ public class SimpleCharStream
   int available;
   int tokenBegin;
 /** Position in buffer. */
-  public int bufpos = -1;
+  protected int bufpos = -1;
   protected int bufline[];
   protected int bufcolumn[];
 
