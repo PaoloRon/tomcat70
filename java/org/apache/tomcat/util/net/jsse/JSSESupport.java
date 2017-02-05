@@ -211,8 +211,8 @@ class JSSESupport implements SSLSupport, SSLSessionManager {
             int size = 0;
             String cipherSuite = session.getCipherSuite();
             for (int i = 0; i < c_aux.length; i++) {
-                if (cipherSuite.indexOf(c_aux[i].phrase) >= 0) {
-                    size = c_aux[i].keySize;
+                if (cipherSuite.indexOf(c_aux[i].getPhrase()) >= 0) {
+                    size = c_aux[i].getKeySize();
                     break;
                 }
             }

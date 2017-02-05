@@ -131,6 +131,14 @@ public interface SSLSupport {
             this.phrase = phrase;
             this.keySize = keySize;
         }
+
+		public String getPhrase() {
+			return phrase;
+		}
+
+		public int getKeySize() {
+			return keySize;
+		}	
     
     }
     
