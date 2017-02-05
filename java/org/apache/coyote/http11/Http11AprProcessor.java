@@ -602,7 +602,7 @@ public class Http11AprProcessor extends AbstractHttp11Processor implements Actio
                 try {
                     long sa = Address.get(Socket.APR_REMOTE, socket);
                     Sockaddr addr = Address.getInfo(sa);
-                    remotePort = addr.port;
+                    remotePort = addr.getPort();
                 } catch (Exception e) {
                     log.warn(sm.getString("http11processor.socket.info"), e);
                 }
@@ -616,7 +616,7 @@ public class Http11AprProcessor extends AbstractHttp11Processor implements Actio
                 try {
                     long sa = Address.get(Socket.APR_LOCAL, socket);
                     Sockaddr addr = Address.getInfo(sa);
-                    localPort = addr.port;
+                    localPort = addr.getPort();
                 } catch (Exception e) {
                     log.warn(sm.getString("http11processor.socket.info"), e);
                 }

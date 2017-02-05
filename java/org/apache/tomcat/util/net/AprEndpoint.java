@@ -387,7 +387,7 @@ public class AprEndpoint extends AbstractEndpoint {
         long inetAddress = Address.info(addressStr, family,
                 getPort(), 0, rootPool);
         // Create the APR server socket
-        serverSock = Socket.create(Address.getInfo(inetAddress).family,
+        serverSock = Socket.create(Address.getInfo(inetAddress).getFamily(),
                 Socket.SOCK_STREAM,
                 Socket.APR_PROTO_TCP, rootPool);
         if (OS.IS_UNIX) {

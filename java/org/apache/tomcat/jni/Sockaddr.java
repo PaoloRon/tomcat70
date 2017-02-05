@@ -26,17 +26,27 @@ package org.apache.tomcat.jni;
 public class Sockaddr {
 
    /** The pool to use... */
-    public long pool;
+    protected long pool;
     /** The hostname */
-    public String hostname;
+    protected String hostname;
     /** Either a string of the port number or the service name for the port */
-    public String servname;
+    protected String servname;
     /** The numeric port */
-    public int port;
+    private int port;
     /** The family */
-    public int family;
+    private int family;
     /** If multiple addresses were found by apr_sockaddr_info_get(), this
      *  points to a representation of the next address. */
-    public long next;
+    protected long next;
+    
+    
+	public int getFamily() {
+		return family;
+	}
+
+	public int getPort() {
+		return port;
+	}
+	
 
 }
