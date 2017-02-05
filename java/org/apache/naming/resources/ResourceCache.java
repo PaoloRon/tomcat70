@@ -294,7 +294,7 @@ public class ResourceCache {
         CacheEntry[] currentCache = cache;
         accessCount++;
         int pos = find(currentCache, name);
-        if ((pos != -1) && (name.equals(currentCache[pos].name))) {
+        if ((pos != -1) && (name.equals(currentCache[pos].getName()))) {
             cacheEntry = currentCache[pos];
         }
         if (cacheEntry == null) {
@@ -313,13 +313,13 @@ public class ResourceCache {
 
 
     public void load(CacheEntry entry) {
-        if (entry.exists) {
+        if (entry.isExists()) {
             if (insertCache(entry)) {
                 cacheSize += entry.size;
             }
         } else {
-            int sizeIncrement = (notFoundCache.get(entry.name) == null) ? 1 : 0;
-            notFoundCache.put(entry.name, entry);
+            int sizeIncrement = (notFoundCache.get(entry.getName()) == null) ? 1 : 0;
+            notFoundCache.put(entry.getName(), entry);
             cacheSize += sizeIncrement;
         }
     }
@@ -352,7 +352,7 @@ public class ResourceCache {
         if (b == -1) {
             return -1;
         }
-        if (name.compareTo(map[0].name) < 0) {
+        if (name.compareTo(map[0].getName()) < 0) {
             return -1;
         }
         if (b == 0) {
@@ -362,7 +362,7 @@ public class ResourceCache {
         int i = 0;
         while (true) {
             i = (b + a) / 2;
-            int result = name.compareTo(map[i].name);
+            int result = name.compareTo(map[i].getName());
             if (result > 0) {
                 a = i;
             } else if (result == 0) {
@@ -371,7 +371,7 @@ public class ResourceCache {
                 b = i;
             }
             if ((b - a) == 1) {
-                int result2 = name.compareTo(map[b].name);
+                int result2 = name.compareTo(map[b].getName());
                 if (result2 < 0) {
                     return a;
                 } else {
@@ -389,8 +389,8 @@ public class ResourceCache {
      */
     private final boolean insertCache(CacheEntry newElement) {
         CacheEntry[] oldCache = cache;
-        int pos = find(oldCache, newElement.name);
-        if ((pos != -1) && (newElement.name.equals(oldCache[pos].name))) {
+        int pos = find(oldCache, newElement.getName());
+        if ((pos != -1) && (newElement.getName().equals(oldCache[pos].getName()))) {
             return false;
         }
         CacheEntry[] newCache = new CacheEntry[cache.length + 1];
@@ -409,7 +409,7 @@ public class ResourceCache {
     private final CacheEntry removeCache(String name) {
         CacheEntry[] oldCache = cache;
         int pos = find(oldCache, name);
-        if ((pos != -1) && (name.equals(oldCache[pos].name))) {
+        if ((pos != -1) && (name.equals(oldCache[pos].getName()))) {
             CacheEntry[] newCache = new CacheEntry[cache.length - 1];
             System.arraycopy(oldCache, 0, newCache, 0, pos);
             System.arraycopy(oldCache, pos + 1, newCache, pos, 

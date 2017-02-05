@@ -32,11 +32,11 @@ public class CacheEntry {
 
 
     protected long timestamp = -1;
-    protected String name = null;
-    protected ResourceAttributes attributes = null;
-    protected Resource resource = null;
-    protected DirContext context = null;
-    protected boolean exists = true;
+    private String name = null;
+    private ResourceAttributes attributes = null;
+    private Resource resource = null;
+    private DirContext context = null;
+    private boolean exists = true;
     protected long accessCount = 0;
     protected int size = 1;
 
@@ -44,7 +44,57 @@ public class CacheEntry {
     // ----------------------------------------------------- Public Methods
 
 
-    public void recycle() {
+    public String getName() {
+		return name;
+	}
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+	public ResourceAttributes getAttributes() {
+		return attributes;
+	}
+
+
+	public void setAttributes(ResourceAttributes attributes) {
+		this.attributes = attributes;
+	}
+
+
+	public Resource getResource() {
+		return resource;
+	}
+
+
+	public void setResource(Resource resource) {
+		this.resource = resource;
+	}
+
+
+	public DirContext getContext() {
+		return context;
+	}
+
+
+	public void setContext(DirContext context) {
+		this.context = context;
+	}
+
+
+	public boolean isExists() {
+		return exists;
+	}
+
+
+	public void setExists(boolean exists) {
+		this.exists = exists;
+	}
+
+
+	public void recycle() {
         timestamp = -1;
         name = null;
         attributes = null;

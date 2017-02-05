@@ -2040,7 +2040,7 @@ public class WebdavServlet
             return;
 
         CacheEntry cacheEntry = resources.lookupCache(path);
-        if (!cacheEntry.exists) {
+        if (!cacheEntry.isExists()) {
         	// File is in directory listing but doesn't appear to exist
         	// Broken symlink or odd permission settings?
         	return;
@@ -2059,7 +2059,7 @@ public class WebdavServlet
             href += path.substring(1);
         else
             href += path;
-        if ((cacheEntry.context != null) && (!href.endsWith("/")))
+        if ((cacheEntry.getContext() != null) && (!href.endsWith("/")))
             href += "/";
 
         generatedXML.writeText(rewriteUrl(href));
@@ -2080,25 +2080,25 @@ public class WebdavServlet
 
             generatedXML.writeProperty
                 (null, "creationdate",
-                 getISOCreationDate(cacheEntry.attributes.getCreation()));
+                 getISOCreationDate(cacheEntry.getAttributes().getCreation()));
             generatedXML.writeElement(null, "displayname", XMLWriter.OPENING);
             generatedXML.writeData(resourceName);
             generatedXML.writeElement(null, "displayname", XMLWriter.CLOSING);
-            if (cacheEntry.resource != null) {
+            if (cacheEntry.getResource() != null) {
                 generatedXML.writeProperty
                     (null, "getlastmodified", FastHttpDateFormat.formatDate
-                           (cacheEntry.attributes.getLastModified(), null));
+                           (cacheEntry.getAttributes().getLastModified(), null));
                 generatedXML.writeProperty
                     (null, "getcontentlength",
-                     String.valueOf(cacheEntry.attributes.getContentLength()));
+                     String.valueOf(cacheEntry.getAttributes().getContentLength()));
                 String contentType = getServletContext().getMimeType
-                    (cacheEntry.name);
+                    (cacheEntry.getName());
                 if (contentType != null) {
                     generatedXML.writeProperty(null, "getcontenttype",
                                                contentType);
                 }
                 generatedXML.writeProperty(null, "getetag",
-                                           cacheEntry.attributes.getETag());
+                                           cacheEntry.getAttributes().getETag());
                 generatedXML.writeElement(null, "resourcetype",
                                           XMLWriter.NO_CONTENT);
             } else {
@@ -2144,7 +2144,7 @@ public class WebdavServlet
                                       XMLWriter.NO_CONTENT);
             generatedXML.writeElement(null, "displayname",
                                       XMLWriter.NO_CONTENT);
-            if (cacheEntry.resource != null) {
+            if (cacheEntry.getResource() != null) {
                 generatedXML.writeElement(null, "getcontentlanguage",
                                           XMLWriter.NO_CONTENT);
                 generatedXML.writeElement(null, "getcontentlength",
@@ -2188,7 +2188,7 @@ public class WebdavServlet
                 if (property.equals("creationdate")) {
                     generatedXML.writeProperty
                         (null, "creationdate",
-                         getISOCreationDate(cacheEntry.attributes.getCreation()));
+                         getISOCreationDate(cacheEntry.getAttributes().getCreation()));
                 } else if (property.equals("displayname")) {
                     generatedXML.writeElement
                         (null, "displayname", XMLWriter.OPENING);
@@ -2196,46 +2196,46 @@ public class WebdavServlet
                     generatedXML.writeElement
                         (null, "displayname", XMLWriter.CLOSING);
                 } else if (property.equals("getcontentlanguage")) {
-                    if (cacheEntry.context != null) {
+                    if (cacheEntry.getContext() != null) {
                         propertiesNotFound.addElement(property);
                     } else {
                         generatedXML.writeElement(null, "getcontentlanguage",
                                                   XMLWriter.NO_CONTENT);
                     }
                 } else if (property.equals("getcontentlength")) {
-                    if (cacheEntry.context != null) {
+                    if (cacheEntry.getContext() != null) {
                         propertiesNotFound.addElement(property);
                     } else {
                         generatedXML.writeProperty
                             (null, "getcontentlength",
-                             (String.valueOf(cacheEntry.attributes.getContentLength())));
+                             (String.valueOf(cacheEntry.getAttributes().getContentLength())));
                     }
                 } else if (property.equals("getcontenttype")) {
-                    if (cacheEntry.context != null) {
+                    if (cacheEntry.getContext() != null) {
                         propertiesNotFound.addElement(property);
                     } else {
                         generatedXML.writeProperty
                             (null, "getcontenttype",
                              getServletContext().getMimeType
-                             (cacheEntry.name));
+                             (cacheEntry.getName()));
                     }
                 } else if (property.equals("getetag")) {
-                    if (cacheEntry.context != null) {
+                    if (cacheEntry.getContext() != null) {
                         propertiesNotFound.addElement(property);
                     } else {
                         generatedXML.writeProperty
-                            (null, "getetag", cacheEntry.attributes.getETag());
+                            (null, "getetag", cacheEntry.getAttributes().getETag());
                     }
                 } else if (property.equals("getlastmodified")) {
-                    if (cacheEntry.context != null) {
+                    if (cacheEntry.getContext() != null) {
                         propertiesNotFound.addElement(property);
                     } else {
                         generatedXML.writeProperty
                             (null, "getlastmodified", FastHttpDateFormat.formatDate
-                                    (cacheEntry.attributes.getLastModified(), null));
+                                    (cacheEntry.getAttributes().getLastModified(), null));
                     }
                 } else if (property.equals("resourcetype")) {
-                    if (cacheEntry.context != null) {
+                    if (cacheEntry.getContext() != null) {
                         generatedXML.writeElement(null, "resourcetype",
                                                   XMLWriter.OPENING);
                         generatedXML.writeElement(null, "collection",
