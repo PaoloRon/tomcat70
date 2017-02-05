@@ -1236,7 +1236,7 @@ public class NioEndpoint extends AbstractEndpoint {
                 //unreg(sk,attachment);//only do this if we do process send file on a separate thread
                 SendfileData sd = attachment.getSendfileData();
                 if ( sd.fchannel == null ) {
-                    File f = new File(sd.fileName);
+                    File f = new File(sd.getFileName());
                     if ( !f.exists() ) {
                         cancelledKey(sk,SocketStatus.ERROR,false);
                         return false;
@@ -1252,20 +1252,20 @@ public class NioEndpoint extends AbstractEndpoint {
                         attachment.access();
                     }
                 } else {
-                    long written = sd.fchannel.transferTo(sd.pos,sd.length,wc);
+                    long written = sd.fchannel.transferTo(sd.getPos(),sd.getLength(),wc);
                     if ( written > 0 ) {
-                        sd.pos += written;
-                        sd.length -= written;
+                        sd.setPos(sd.getPos() + written);
+                        sd.setLength(sd.getLength() - written);
                         attachment.access();
                     }
                 }
-                if ( sd.length <= 0 && sc.getOutboundRemaining()<=0) {
+                if ( sd.getLength() <= 0 && sc.getOutboundRemaining()<=0) {
                     if (log.isDebugEnabled()) {
-                        log.debug("Send file complete for:"+sd.fileName);
+                        log.debug("Send file complete for:"+sd.getFileName());
                     }
                     attachment.setSendfileData(null);
                     try {sd.fchannel.close();}catch(Exception ignore){}
-                    if ( sd.keepAlive ) {
+                    if ( sd.isKeepAlive() ) {
                         if (reg) {
                             if (log.isDebugEnabled()) {
                                 log.debug("Connection is keep alive, registering back for OP_READ");
@@ -1284,7 +1284,7 @@ public class NioEndpoint extends AbstractEndpoint {
                     }
                 } else if ( attachment.interestOps() == 0 && reg ) {
                     if (log.isDebugEnabled()) {
-                        log.debug("OP_WRITE for sendilfe:"+sd.fileName);
+                        log.debug("OP_WRITE for sendilfe:"+sd.getFileName());
                     }
                     if (event) {
                         add(attachment.getChannel(),SelectionKey.OP_WRITE);
@@ -1609,11 +1609,42 @@ public class NioEndpoint extends AbstractEndpoint {
      */
     public static class SendfileData {
         // File
-        public String fileName;
-        public FileChannel fchannel;
-        public long pos;
-        public long length;
+        private String fileName;
+        private FileChannel fchannel;
+        private long pos;
+        private long length;
         // KeepAlive flag
-        public boolean keepAlive;
+        private boolean keepAlive;
+        
+		public String getFileName() {
+			return fileName;
+		}
+		
+		public void setFileName(String fileName) {
+			this.fileName = fileName;
+		}
+		
+		public long getPos() {
+			return pos;
+		}
+		
+		public void setPos(long pos) {
+			this.pos = pos;
+		}
+		
+		public long getLength() {
+			return length;
+		}
+		public void setLength(long length) {
+			this.length = length;
+		}
+		
+		public boolean isKeepAlive() {
+			return keepAlive;
+		}
+		
+		public void setKeepAlive(boolean keepAlive) {
+			this.keepAlive = keepAlive;
+		}
     }
 }
