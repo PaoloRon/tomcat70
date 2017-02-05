@@ -32,7 +32,7 @@ public class SocketWrapper<E> {
     protected boolean async = false;
     protected boolean keptAlive = false;
     protected boolean initialized = false;
-    public AtomicBoolean processing = new AtomicBoolean(false);
+    public static final AtomicBoolean processing = new AtomicBoolean(false);
     
     public SocketWrapper(E socket) {
         this.socket = socket;
