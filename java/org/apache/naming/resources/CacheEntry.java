@@ -31,14 +31,14 @@ public class CacheEntry {
     // ------------------------------------------------- Instance Variables
 
 
-    public long timestamp = -1;
-    public String name = null;
-    public ResourceAttributes attributes = null;
-    public Resource resource = null;
-    public DirContext context = null;
-    public boolean exists = true;
-    public long accessCount = 0;
-    public int size = 1;
+    protected long timestamp = -1;
+    protected String name = null;
+    protected ResourceAttributes attributes = null;
+    protected Resource resource = null;
+    protected DirContext context = null;
+    protected boolean exists = true;
+    protected long accessCount = 0;
+    protected int size = 1;
 
 
     // ----------------------------------------------------- Public Methods
