@@ -632,7 +632,7 @@ public class Request
      * @param host The newly associated Host
      */
     public void setHost(Host host) {
-        mappingData.host = host;
+        mappingData.setHost(host);
     }
 
 
@@ -1715,9 +1715,9 @@ public class Request
     public void setContextPath(String path) {
 
         if (path == null) {
-            mappingData.contextPath.setString("");
+            mappingData.getContextPath().setString("");
         } else {
-            mappingData.contextPath.setString(path);
+            mappingData.getContextPath().setString(path);
         }
 
     }
@@ -1731,7 +1731,7 @@ public class Request
      * @param path The path information
      */
     public void setPathInfo(String path) {
-        mappingData.pathInfo.setString(path);
+        mappingData.getPathInfo().setString(path);
     }
 
 
@@ -1819,7 +1819,7 @@ public class Request
      */
     public void setServletPath(String path) {
         if (path != null)
-            mappingData.wrapperPath.setString(path);
+            mappingData.getWrapperPath().setString(path);
     }
 
 
@@ -1867,7 +1867,7 @@ public class Request
      * of the Request.
      */
     public String getContextPath() {
-        return mappingData.contextPath.toString();
+        return mappingData.getContextPath().toString();
     }
 
 
@@ -1877,7 +1877,7 @@ public class Request
      * @return the context path
      */
     public MessageBytes getContextPathMB() {
-        return mappingData.contextPath;
+        return mappingData.getContextPath();
     }
 
 
@@ -1991,7 +1991,7 @@ public class Request
      * Return the path information associated with this Request.
      */
     public String getPathInfo() {
-        return mappingData.pathInfo.toString();
+        return mappingData.getPathInfo().toString();
     }
 
 
@@ -2001,7 +2001,7 @@ public class Request
      * @return the path info
      */
     public MessageBytes getPathInfoMB() {
-        return mappingData.pathInfo;
+        return mappingData.getPathInfo();
     }
 
 
@@ -2055,7 +2055,7 @@ public class Request
      * @return the request path
      */
     public MessageBytes getRequestPathMB() {
-        return mappingData.requestPath;
+        return mappingData.getRequestPath();
     }
 
 
@@ -2118,7 +2118,7 @@ public class Request
      * that will process this request.
      */
     public String getServletPath() {
-        return (mappingData.wrapperPath.toString());
+        return (mappingData.getWrapperPath().toString());
     }
 
 
@@ -2128,7 +2128,7 @@ public class Request
      * @return the servlet path
      */
     public MessageBytes getServletPathMB() {
-        return mappingData.wrapperPath;
+        return mappingData.getWrapperPath();
     }
 
 
