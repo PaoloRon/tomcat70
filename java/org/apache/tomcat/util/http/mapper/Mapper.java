@@ -1425,8 +1425,8 @@ public final class Mapper {
 
     protected static abstract class MapElement {
 
-        public String name = null;
-        public Object object = null;
+        protected String name = null;
+        protected Object object = null;
 
     }
 
@@ -1437,7 +1437,7 @@ public final class Mapper {
     protected static final class Host
         extends MapElement {
 
-        public ContextList contextList = null;
+        protected ContextList contextList = null;
 
     }
 
@@ -1447,8 +1447,8 @@ public final class Mapper {
 
     protected static final class ContextList {
 
-        public Context[] contexts = new Context[0];
-        public int nesting = 0;
+    	protected Context[] contexts = new Context[0];
+    	protected int nesting = 0;
 
     }
 
@@ -1459,14 +1459,14 @@ public final class Mapper {
     protected static final class Context
         extends MapElement {
 
-        public String path = null;
-        public String[] welcomeResources = new String[0];
-        public javax.naming.Context resources = null;
-        public Wrapper defaultWrapper = null;
-        public Wrapper[] exactWrappers = new Wrapper[0];
-        public Wrapper[] wildcardWrappers = new Wrapper[0];
-        public Wrapper[] extensionWrappers = new Wrapper[0];
-        public int nesting = 0;
+        protected String path = null;
+        protected String[] welcomeResources = new String[0];
+        protected javax.naming.Context resources = null;
+        protected Wrapper defaultWrapper = null;
+        protected Wrapper[] exactWrappers = new Wrapper[0];
+        protected Wrapper[] wildcardWrappers = new Wrapper[0];
+        protected Wrapper[] extensionWrappers = new Wrapper[0];
+        protected int nesting = 0;
 
     }
 
@@ -1477,8 +1477,8 @@ public final class Mapper {
     protected static class Wrapper
         extends MapElement {
 
-        public String path = null;
-        public boolean jspWildCard = false;
+    	protected String path = null;
+    	protected boolean jspWildCard = false;
     }
 
 
