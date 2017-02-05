@@ -244,7 +244,7 @@ public class JIoEndpoint extends AbstractEndpoint {
             boolean launch = false;
         	try {
         	    
-        	    if (!socket.processing.compareAndSet(false, true)) {
+        	    if (!SocketWrapper.processing.compareAndSet(false, true)) {
         	        log.error("Unable to process socket. Invalid state.");
         	        return;
         	    }
@@ -280,7 +280,7 @@ public class JIoEndpoint extends AbstractEndpoint {
         	        waitingRequests.add(socket);
         	    }
         	} finally {
-                socket.processing.set(false);
+                SocketWrapper.processing.set(false);
                 if (launch) getExecutor().execute(new SocketProcessor(socket));
                 socket = null;
             }
