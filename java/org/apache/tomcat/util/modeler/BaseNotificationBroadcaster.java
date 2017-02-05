@@ -231,10 +231,10 @@ class BaseNotificationBroadcasterEntry {
         this.handback = handback;
     }
 
-    public NotificationFilter filter = null;
+    protected NotificationFilter filter = null;
 
-    public Object handback = null;
+    protected Object handback = null;
 
-    public NotificationListener listener = null;
+    protected NotificationListener listener = null;
 
 }
