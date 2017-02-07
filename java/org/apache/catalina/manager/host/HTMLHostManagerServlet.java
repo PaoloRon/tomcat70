@@ -108,7 +108,11 @@ public final class HTMLHostManagerServlet extends HostManagerServlet {
                 sm.getString("hostManagerServlet.unknownCommand", command);
         }
 
-        list(request, response, message);
+        try {
+			list(request, response, message);
+		} catch (Exception e) {
+			log(e.getMessage());
+		}
     }
 
     
@@ -167,10 +171,18 @@ public final class HTMLHostManagerServlet extends HostManagerServlet {
             message = stop(name);
         } else {
             //Try GET
-            doGet(request, response);
+            try {
+				doGet(request, response);
+			} catch (Exception e) {
+				log(e.getMessage());
+			}
         }
 
-        list(request, response, message);
+        try {
+			list(request, response, message);
+		} catch (Exception e) {
+			log(e.getMessage());
+		}
     }
 
 

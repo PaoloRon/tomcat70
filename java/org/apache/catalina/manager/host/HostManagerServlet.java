@@ -215,29 +215,33 @@ public class HostManagerServlet
   
         // Prepare our output writer to generate the response message
         response.setContentType("text/plain; charset=" + Constants.CHARSET);
-        PrintWriter writer = response.getWriter();
+        try {
+			PrintWriter writer = response.getWriter();
 
-        // Process the requested command
-        if (command == null) {
-            writer.println(sm.getString("hostManagerServlet.noCommand"));
-        } else if (command.equals("/add")) {
-            add(request, writer, name, false);
-        } else if (command.equals("/remove")) {
-            remove(writer, name);
-        } else if (command.equals("/list")) {
-            list(writer);
-        } else if (command.equals("/start")) {
-            start(writer, name);
-        } else if (command.equals("/stop")) {
-            stop(writer, name);
-        } else {
-            writer.println(sm.getString("hostManagerServlet.unknownCommand",
-                                        command));
-        }
+			// Process the requested command
+			if (command == null) {
+			    writer.println(sm.getString("hostManagerServlet.noCommand"));
+			} else if (command.equals("/add")) {
+			    add(request, writer, name, false);
+			} else if (command.equals("/remove")) {
+			    remove(writer, name);
+			} else if (command.equals("/list")) {
+			    list(writer);
+			} else if (command.equals("/start")) {
+			    start(writer, name);
+			} else if (command.equals("/stop")) {
+			    stop(writer, name);
+			} else {
+			    writer.println(sm.getString("hostManagerServlet.unknownCommand",
+			                                command));
+			}
 
-        // Finish up the response
-        writer.flush();
-        writer.close();
+			// Finish up the response
+			writer.flush();
+			writer.close();
+		} catch (Exception e) {
+			log(e.getMessage());
+		}
 
     }
 
