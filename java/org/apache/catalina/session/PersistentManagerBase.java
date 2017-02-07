@@ -501,14 +501,14 @@ public abstract class PersistentManagerBase extends ManagerBase
                 }catch(PrivilegedActionException ex){
                     Exception exception = ex.getException();
                     log.error("Exception clearing the Store: " + exception);
-                    exception.printStackTrace();                        
+                    log.error(exception.getStackTrace());                       
                 }
             } else {
                 store.clear();
             }
         } catch (IOException e) {
             log.error("Exception clearing the Store: " + e);
-            e.printStackTrace();
+            log.error(e.getStackTrace());
         }
 
     }
@@ -638,7 +638,7 @@ public abstract class PersistentManagerBase extends ManagerBase
                     Exception exception = ex.getException();
                     log.error("Exception in the Store during load: "
                               + exception);
-                    exception.printStackTrace();                        
+                    log.error(ex.getStackTrace());                   
                 }
             } else {
                 ids = store.keys();
@@ -697,14 +697,14 @@ public abstract class PersistentManagerBase extends ManagerBase
                     Exception exception = ex.getException();
                     log.error("Exception in the Store during removeSession: "
                               + exception);
-                    exception.printStackTrace();                        
+                    log.error(ex.getStackTrace());                       
                 }
             } else {
                  store.remove(id);
             }               
         } catch (IOException e) {
             log.error("Exception removing session  " + e.getMessage());
-            e.printStackTrace();
+            log.error(e.getStackTrace());       
         }        
     }
 
@@ -885,7 +885,7 @@ public abstract class PersistentManagerBase extends ManagerBase
                     Exception exception = ex.getException();
                     log.error("Exception in the Store during writeSession: "
                               + exception);
-                    exception.printStackTrace();                        
+                    log.error(exception.getStackTrace());                             
                 }
             } else {
                  store.save(session);
