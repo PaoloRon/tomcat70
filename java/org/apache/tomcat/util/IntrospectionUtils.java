@@ -120,7 +120,8 @@ public final class IntrospectionUtils {
             // jdk1.1
             return null;
         } catch (Exception ex) {
-            ex.printStackTrace();
+        	 if(log.isErrorEnabled())
+           	   log.error("Unexpected error", ex);
             return null;
         }
     }
@@ -185,7 +186,8 @@ public final class IntrospectionUtils {
                         System.getProperties().put(homeSysProp, install);
                     return install;
                 } catch (Exception ex) {
-                    ex.printStackTrace();
+                	if(log.isErrorEnabled())
+                 	   log.error("Unexpected error", ex);
                 }
             } else {
                 String fname = path + (path.endsWith("/") ? "" : "/")
@@ -204,7 +206,8 @@ public final class IntrospectionUtils {
                             System.getProperties().put(homeSysProp, install);
                         return install;
                     } catch (Exception ex) {
-                        ex.printStackTrace();
+                    	if(log.isErrorEnabled())
+                     	   log.error("Unexpected error", ex);
                     }
                 }
             }
@@ -556,7 +559,8 @@ public final class IntrospectionUtils {
                 }
             }
         } catch (Exception ex) {
-            ex.printStackTrace();
+        	if(log.isErrorEnabled())
+         	   log.error("Unexpected error", ex);
         }
     }
 
@@ -581,7 +585,8 @@ public final class IntrospectionUtils {
 
             v.addElement(url);
         } catch (MalformedURLException ex) {
-            ex.printStackTrace();
+        	if(log.isErrorEnabled())
+         	   log.error("Unexpected error", ex);
         }
     }
 
@@ -620,7 +625,8 @@ public final class IntrospectionUtils {
                 return null;
             return new URL("file", "", path);
         } catch (Exception ex) {
-            ex.printStackTrace();
+        	if(log.isErrorEnabled())
+         	   log.error("Unexpected error", ex);
             return null;
         }
     }
@@ -768,7 +774,8 @@ public final class IntrospectionUtils {
                 }
             }
         } catch (Exception ex) {
-            ex.printStackTrace();
+        	if(log.isErrorEnabled())
+         	   log.error("Unexpected error", ex);
         }
         return false;
     }
