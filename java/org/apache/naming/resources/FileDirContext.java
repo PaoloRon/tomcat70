@@ -270,7 +270,8 @@ public class FileDirContext extends BaseDirContext {
 
         File newFile = new File(base, newName);
 
-        file.renameTo(newFile);
+        if(file.renameTo(newFile))
+        	log.debug("file successfully renamed");
 
     }
 
