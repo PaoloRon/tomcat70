@@ -106,7 +106,11 @@ public class SSIServlet extends HttpServlet {
     public void doGet(HttpServletRequest req, HttpServletResponse res)
             throws IOException, ServletException {
         if (debug > 0) log("SSIServlet.doGet()");
-        requestHandler(req, res);
+        try {
+			requestHandler(req, res);
+		} catch (Exception e) {
+			log(e.getMessage());
+		}
     }
 
 
@@ -127,7 +131,11 @@ public class SSIServlet extends HttpServlet {
     public void doPost(HttpServletRequest req, HttpServletResponse res)
             throws IOException, ServletException {
         if (debug > 0) log("SSIServlet.doPost()");
-        requestHandler(req, res);
+        try {
+			requestHandler(req, res);
+		} catch (Exception e) {
+			log(e.getMessage());
+		}
     }
 
 
