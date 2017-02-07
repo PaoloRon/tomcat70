@@ -344,7 +344,11 @@ public class DefaultServlet
         throws IOException, ServletException {
 
         // Serve the requested resource, including the data content
-        serveResource(request, response, true);
+        try {
+			serveResource(request, response, true);
+		} catch (Exception e) {
+			log(e.getMessage());
+		}
 
     }
 
@@ -364,7 +368,11 @@ public class DefaultServlet
         throws IOException, ServletException {
 
         // Serve the requested resource, without the data content
-        serveResource(request, response, false);
+        try {
+			serveResource(request, response, false);
+		} catch (Exception e) {
+			log(e.getMessage());
+		}
 
     }
 
@@ -426,7 +434,11 @@ public class DefaultServlet
     protected void doPost(HttpServletRequest request,
                           HttpServletResponse response)
         throws IOException, ServletException {
-        doGet(request, response);
+        try {
+			doGet(request, response);
+		} catch (Exception e) {
+			log(e.getMessage());
+		}
     }
 
 
@@ -444,7 +456,11 @@ public class DefaultServlet
         throws ServletException, IOException {
 
         if (readOnly) {
-            resp.sendError(HttpServletResponse.SC_FORBIDDEN);
+            try {
+				resp.sendError(HttpServletResponse.SC_FORBIDDEN);
+			} catch (Exception e) {
+				log(e.getMessage());
+			}
             return;
         }
 
@@ -457,49 +473,58 @@ public class DefaultServlet
             exists = false;
         }
 
-        boolean result = true;
-
         // Temp. content file used to support partial PUT
         File contentFile = null;
 
-        Range range = parseContentRange(req, resp);
-
-        InputStream resourceInputStream = null;
-
-        // Append data specified in ranges to existing content for this
-        // resource - create a temp. file on the local filesystem to
-        // perform this operation
-        // Assume just one range is specified for now
-        if (range != null) {
-            contentFile = executePartialPut(req, range, path);
-            resourceInputStream = new FileInputStream(contentFile);
-        } else {
-            resourceInputStream = req.getInputStream();
-        }
-
         try {
-            Resource newResource = new Resource(resourceInputStream);
-            // FIXME: Add attributes
-            if (exists) {
-                resources.rebind(path, newResource);
-            } else {
-                resources.bind(path, newResource);
-            }
-        } catch(NamingException e) {
-            result = false;
-        }
+			Range range = parseContentRange(req, resp);
 
-        if (result) {
-            if (exists) {
-                resp.setStatus(HttpServletResponse.SC_NO_CONTENT);
-            } else {
-                resp.setStatus(HttpServletResponse.SC_CREATED);
-            }
-        } else {
-            resp.sendError(HttpServletResponse.SC_CONFLICT);
-        }
+			InputStream resourceInputStream = null;
+
+			// Append data specified in ranges to existing content for this
+			// resource - create a temp. file on the local filesystem to
+			// perform this operation
+			// Assume just one range is specified for now
+			if (range != null) {
+			    contentFile = executePartialPut(req, range, path);
+			    resourceInputStream = new FileInputStream(contentFile);
+			} else {
+			    resourceInputStream = req.getInputStream();
+			}
+
+			boolean result = resourceBinding(path, exists, resourceInputStream);
+
+			if (result) {
+			    if (exists) {
+			        resp.setStatus(HttpServletResponse.SC_NO_CONTENT);
+			    } else {
+			        resp.setStatus(HttpServletResponse.SC_CREATED);
+			    }
+			} else {
+			    resp.sendError(HttpServletResponse.SC_CONFLICT);
+			}
+		} catch (Exception e) {
+			log(e.getMessage());
+		}
 
     }
+
+
+	private boolean resourceBinding(String path, boolean exists, InputStream resourceInputStream) {
+		boolean result = true;
+		try {
+		    Resource newResource = new Resource(resourceInputStream);
+		    // FIXME: Add attributes
+		    if (exists) {
+		        resources.rebind(path, newResource);
+		    } else {
+		        resources.bind(path, newResource);
+		    }
+		} catch(NamingException e) {
+		    result = false;
+		}
+		return result;
+	}
 
 
     /**
@@ -584,7 +609,11 @@ public class DefaultServlet
         throws ServletException, IOException {
 
         if (readOnly) {
-            resp.sendError(HttpServletResponse.SC_FORBIDDEN);
+            try {
+				resp.sendError(HttpServletResponse.SC_FORBIDDEN);
+			} catch (Exception e) {
+				log(e.getMessage());
+			}
             return;
         }
 
@@ -607,10 +636,18 @@ public class DefaultServlet
             if (result) {
                 resp.setStatus(HttpServletResponse.SC_NO_CONTENT);
             } else {
-                resp.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+                try {
+					resp.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+				} catch (Exception e) {
+					log(e.getMessage());
+				}
             }
         } else {
-            resp.sendError(HttpServletResponse.SC_NOT_FOUND);
+            try {
+				resp.sendError(HttpServletResponse.SC_NOT_FOUND);
+			} catch (Exception e) {
+				log(e.getMessage());
+			}
         }
 
     }

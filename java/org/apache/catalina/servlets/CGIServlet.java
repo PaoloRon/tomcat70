@@ -548,7 +548,11 @@ public final class CGIServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res)
         throws IOException, ServletException {
-        doGet(req, res);
+        try {
+			doGet(req, res);
+		} catch (Exception e) {
+			log(e.getMessage());
+		}
     }
 
 
@@ -571,59 +575,63 @@ public final class CGIServlet extends HttpServlet {
 
         CGIEnvironment cgiEnv = new CGIEnvironment(req, getServletContext());
 
-        if (cgiEnv.isValid()) {
-            CGIRunner cgi = new CGIRunner(cgiEnv.getCommand(),
-                                          cgiEnv.getEnvironment(),
-                                          cgiEnv.getWorkingDirectory(),
-                                          cgiEnv.getParameters());
-            //if POST, we need to cgi.setInput
-            //REMIND: how does this interact with Servlet API 2.3's Filters?!
-            if ("POST".equals(req.getMethod())) {
-                cgi.setInput(req.getInputStream());
-            }
-            cgi.setResponse(res);
-            cgi.run();
-        }
+        try {
+			if (cgiEnv.isValid()) {
+			    CGIRunner cgi = new CGIRunner(cgiEnv.getCommand(),
+			                                  cgiEnv.getEnvironment(),
+			                                  cgiEnv.getWorkingDirectory(),
+			                                  cgiEnv.getParameters());
+			    //if POST, we need to cgi.setInput
+			    //REMIND: how does this interact with Servlet API 2.3's Filters?!
+			    if ("POST".equals(req.getMethod())) {
+			        cgi.setInput(req.getInputStream());
+			    }
+			    cgi.setResponse(res);
+			    cgi.run();
+			}
 
-        if (!cgiEnv.isValid()) {
-            res.setStatus(404);
-        }
+			if (!cgiEnv.isValid()) {
+			    res.setStatus(404);
+			}
  
-        if (debug >= 10) {
+			if (debug >= 10) {
 
-            ServletOutputStream out = res.getOutputStream();
-            out.println("<HTML><HEAD><TITLE>$Name$</TITLE></HEAD>");
-            out.println("<BODY>$Header$<p>");
+			    ServletOutputStream out = res.getOutputStream();
+			    out.println("<HTML><HEAD><TITLE>$Name$</TITLE></HEAD>");
+			    out.println("<BODY>$Header$<p>");
 
-            if (cgiEnv.isValid()) {
-                out.println(cgiEnv.toString());
-            } else {
-                out.println("<H3>");
-                out.println("CGI script not found or not specified.");
-                out.println("</H3>");
-                out.println("<H4>");
-                out.println("Check the <b>HttpServletRequest ");
-                out.println("<a href=\"#pathInfo\">pathInfo</a></b> ");
-                out.println("property to see if it is what you meant ");
-                out.println("it to be.  You must specify an existant ");
-                out.println("and executable file as part of the ");
-                out.println("path-info.");
-                out.println("</H4>");
-                out.println("<H4>");
-                out.println("For a good discussion of how CGI scripts ");
-                out.println("work and what their environment variables ");
-                out.println("mean, please visit the <a ");
-                out.println("href=\"http://cgi-spec.golux.com\">CGI ");
-                out.println("Specification page</a>.");
-                out.println("</H4>");
+			    if (cgiEnv.isValid()) {
+			        out.println(cgiEnv.toString());
+			    } else {
+			        out.println("<H3>");
+			        out.println("CGI script not found or not specified.");
+			        out.println("</H3>");
+			        out.println("<H4>");
+			        out.println("Check the <b>HttpServletRequest ");
+			        out.println("<a href=\"#pathInfo\">pathInfo</a></b> ");
+			        out.println("property to see if it is what you meant ");
+			        out.println("it to be.  You must specify an existant ");
+			        out.println("and executable file as part of the ");
+			        out.println("path-info.");
+			        out.println("</H4>");
+			        out.println("<H4>");
+			        out.println("For a good discussion of how CGI scripts ");
+			        out.println("work and what their environment variables ");
+			        out.println("mean, please visit the <a ");
+			        out.println("href=\"http://cgi-spec.golux.com\">CGI ");
+			        out.println("Specification page</a>.");
+			        out.println("</H4>");
 
-            }
+			    }
 
-            printServletEnvironment(out, req, res);
+			    printServletEnvironment(out, req, res);
 
-            out.println("</BODY></HTML>");
+			    out.println("</BODY></HTML>");
 
-        }
+			}
+		} catch (Exception e) {
+			log(e.getMessage());
+		}
 
 
     } //doGet
