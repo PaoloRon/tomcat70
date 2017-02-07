@@ -31,8 +31,6 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
-import org.apache.juli.logging.Log;
-import org.apache.juli.logging.LogFactory;
 
 
 /**
@@ -78,7 +76,6 @@ import org.apache.juli.logging.LogFactory;
  */
 public abstract class HttpServlet extends GenericServlet {
 
-    private static final String UNEXPECTED_PROBLEM = "An unexpected problem occured.";
 	private static final String METHOD_DELETE = "DELETE";
     private static final String METHOD_HEAD = "HEAD";
     private static final String METHOD_GET = "GET";
@@ -94,9 +91,7 @@ public abstract class HttpServlet extends GenericServlet {
         "javax.servlet.http.LocalStrings";
     private static ResourceBundle lStrings =
         ResourceBundle.getBundle(LSTRING_FILE);
-   
-    private static final Log log = LogFactory.getLog(HttpServlet.class);
-    
+       
     /**
      * Does nothing, because this is an abstract class.
      */
@@ -178,15 +173,13 @@ public abstract class HttpServlet extends GenericServlet {
             try {
 				resp.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED, msg);
 			} catch (Exception e) {
-				if(log.isErrorEnabled())
-					log.error(UNEXPECTED_PROBLEM, e);
+				log(e.getMessage());
 			}
         } else {
             try {
                 resp.sendError(HttpServletResponse.SC_BAD_REQUEST, msg);
 			} catch (Exception e) {
-				if(log.isErrorEnabled())
-					log.error(UNEXPECTED_PROBLEM, e);
+				log(e.getMessage());
 			}
         }
     }
@@ -258,8 +251,7 @@ public abstract class HttpServlet extends GenericServlet {
         try {
 			doGet(req, response);
 		} catch (Exception e) {
-			if(log.isErrorEnabled())
-				log.error(UNEXPECTED_PROBLEM, e);
+			log(e.getMessage());
 		}
         response.setContentLength();
     }
@@ -331,15 +323,13 @@ public abstract class HttpServlet extends GenericServlet {
             try {
 				resp.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED, msg);
 			} catch (Exception e) {
-				if(log.isErrorEnabled())
-					log.error(UNEXPECTED_PROBLEM, e);
+				log(e.getMessage());
 			}
         } else {
             try {
 				resp.sendError(HttpServletResponse.SC_BAD_REQUEST, msg);
 			} catch (Exception e) {
-				if(log.isErrorEnabled())
-					log.error(UNEXPECTED_PROBLEM, e);
+				log(e.getMessage());
 			}
         }
     }
@@ -396,15 +386,13 @@ public abstract class HttpServlet extends GenericServlet {
             try {
 				resp.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED, msg);
 			} catch (Exception e) {
-				if(log.isErrorEnabled())
-					log.error(UNEXPECTED_PROBLEM, e);
+				log(e.getMessage());
 			}
         } else {
             try {
 				resp.sendError(HttpServletResponse.SC_BAD_REQUEST, msg);
 			} catch (Exception e) {
-				if(log.isErrorEnabled())
-					log.error(UNEXPECTED_PROBLEM, e);
+				log(e.getMessage());
 			}
         }
     }
@@ -454,15 +442,13 @@ public abstract class HttpServlet extends GenericServlet {
             try {
 				resp.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED, msg);
 			} catch (Exception e) {
-				if(log.isErrorEnabled())
-					log.error(UNEXPECTED_PROBLEM, e);
+				log(e.getMessage());
 			}
         } else {
             try {
 				resp.sendError(HttpServletResponse.SC_BAD_REQUEST, msg);
 			} catch (Exception e) {
-				if(log.isErrorEnabled())
-					log.error(UNEXPECTED_PROBLEM, e);
+				log(e.getMessage());
 			}
         }
     }
@@ -631,8 +617,7 @@ public abstract class HttpServlet extends GenericServlet {
 			out.print(buffer.toString());        
 			out.close();
 		} catch (Exception e) {
-			if(log.isErrorEnabled())
-				log.error(UNEXPECTED_PROBLEM, e);
+			log(e.getMessage());
 		}
         return;
     }                
