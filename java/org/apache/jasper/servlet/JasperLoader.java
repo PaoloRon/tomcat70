@@ -25,6 +25,8 @@ import java.security.CodeSource;
 import java.security.PermissionCollection;
 
 import org.apache.jasper.Constants;
+import org.apache.juli.logging.Log;
+import org.apache.juli.logging.LogFactory;
 
 /**
  * Class loader for loading servlet class files (corresponding to JSP files) 
@@ -35,7 +37,9 @@ import org.apache.jasper.Constants;
  * @author Jean-Francois Arcand
  */
 public class JasperLoader extends URLClassLoader {
-
+	
+	private static final Log log = LogFactory.getLog(JasperLoader.class);
+			
     private PermissionCollection permissionCollection;
     private ClassLoader parent;
     private SecurityManager securityManager;
@@ -114,7 +118,8 @@ public class JasperLoader extends URLClassLoader {
                 } catch (SecurityException se) {
                     String error = "Security Violation, attempt to use " +
                         "Restricted Class: " + name;
-                    se.printStackTrace();
+                    if(log.isErrorEnabled())
+             	    	log.error(error, se);
                     throw new ClassNotFoundException(error);
                 }                          
             }                              
