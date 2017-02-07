@@ -28,6 +28,8 @@ import java.util.Map;
 import javax.el.FunctionMapper;
 
 import org.apache.el.util.ReflectionUtil;
+import org.apache.juli.logging.Log;
+import org.apache.juli.logging.LogFactory;
 
 
 /**
@@ -36,6 +38,8 @@ import org.apache.el.util.ReflectionUtil;
  */
 public class FunctionMapperImpl extends FunctionMapper implements
         Externalizable {
+	
+	private static final Log log = LogFactory.getLog(FunctionMapperImpl.class);
 
     private static final long serialVersionUID = 1L;
 
@@ -158,7 +162,8 @@ public class FunctionMapperImpl extends FunctionMapper implements
                     Class<?>[] p = ReflectionUtil.toTypeArray(this.types);
                     this.m = t.getMethod(this.name, p);
                 } catch (Exception e) {
-                    e.printStackTrace();
+                	if(log.isErrorEnabled())
+             	    	log.error("Unexpected error", e);
                 }
             }
             return this.m;
