@@ -643,7 +643,11 @@ public class NioEndpoint extends AbstractEndpoint {
                 pollers[i].destroy();
                 pollers[i] = null;
             }
-            try { stopLatch.await(selectorTimeout+100,TimeUnit.MILLISECONDS); } catch (InterruptedException ignore ) {}
+            try { 
+            	if(stopLatch.await(selectorTimeout+100,TimeUnit.MILLISECONDS))
+                    log.debug("waiting");
+            } 
+            catch (InterruptedException ignore ) {}
         }
         eventCache.clear();
         keyCache.clear();
@@ -1445,7 +1449,8 @@ public class NioEndpoint extends AbstractEndpoint {
         
         protected void awaitLatch(CountDownLatch latch, long timeout, TimeUnit unit) throws InterruptedException {
             if ( latch == null ) throw new IllegalStateException("Latch cannot be null");
-            latch.await(timeout,unit);
+            if ( latch.await(timeout,unit) )
+            	log.debug("awaiting");
         }
         public void awaitReadLatch(long timeout, TimeUnit unit) throws InterruptedException { awaitLatch(readLatch,timeout,unit);}
         public void awaitWriteLatch(long timeout, TimeUnit unit) throws InterruptedException { awaitLatch(writeLatch,timeout,unit);}
