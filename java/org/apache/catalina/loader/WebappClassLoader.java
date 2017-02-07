@@ -3277,11 +3277,11 @@ public class WebappClassLoader
             if (file.isDirectory()) {
                 deleteDir(file);
             } else if(file.delete()){
-                log.debug("file succesfully deleted");
+                log.debug("file successfully deleted");
             }
         }
         if(dir.delete())
-        	log.debug("directory succesfully deleted");
+        	log.debug("directory successfully deleted");
         
     }
 

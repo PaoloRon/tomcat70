@@ -1358,12 +1358,12 @@ public class ManagerServlet
                     File war = new File(getAppBase(), getDocBase(path) + ".war");
                     File dir = new File(getAppBase(), getDocBase(path));
                     File xml = new File(configBase, getConfigFile(path) + ".xml");
-                    if (war.exists()) {
-                        war.delete();
+                    if (war.exists() && war.delete()) {
+                        log("successfully deleted");
                     } else if (dir.exists()) {
                         undeployDir(dir);
-                    } else {
-                        xml.delete();
+                    } else if(xml.delete()){
+                        log("successfully deleted");
                     }
                     // Perform new deployment
                     check(path.replace('#', '/'));
@@ -1512,11 +1512,12 @@ public class ManagerServlet
             File file = new File(dir, files[i]);
             if (file.isDirectory()) {
                 undeployDir(file);
-            } else {
-                file.delete();
+            } else if(file.delete()){
+                log("file successfully deleted");
             }
         }
-        dir.delete();
+        if(dir.delete())
+            log("directory successfully deleted");
 
     }
 
@@ -1533,7 +1534,8 @@ public class ManagerServlet
     protected void uploadWar(HttpServletRequest request, File war)
         throws IOException {
 
-        war.delete();
+        if(war.delete())
+        	log("successfully deleted");
         ServletInputStream istream = null;
         BufferedOutputStream ostream = null;
         try {
@@ -1554,7 +1556,8 @@ public class ManagerServlet
             istream.close();
             istream = null;
         } catch (IOException e) {
-            war.delete();
+            if(war.delete())
+            	log("successfully deleted");
             throw e;
         } finally {
             if (ostream != null) {
