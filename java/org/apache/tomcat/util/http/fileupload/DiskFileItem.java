@@ -179,6 +179,9 @@ public class DiskFileItem
      * The file items headers.
      */
     private FileItemHeaders headers;
+    
+    private static final String FILE_DEL_SUCC = "file successfully deleted";
+
 
     // ----------------------------------------------------------- Constructors
 
@@ -479,7 +482,7 @@ public class DiskFileItem
         cachedContent = null;
         File outputFile = getStoreLocation();
         if (outputFile != null && outputFile.exists() && outputFile.delete())
-            log.debug("file successfully deleted");
+            log.debug(FILE_DEL_SUCC);
     }
 
 
@@ -591,7 +594,7 @@ public class DiskFileItem
         File outputFile = dfos.getFile();
 
         if (outputFile != null && outputFile.exists() && outputFile.delete())
-            log.debug("file successfully deleted");
+            log.debug(FILE_DEL_SUCC);
     }
 
 
@@ -709,7 +712,7 @@ public class DiskFileItem
             FileInputStream input = new FileInputStream(dfosFile);
             IOUtils.copy(input, output);
             if(dfosFile.delete())
-            	log.debug("file successfully deleted");
+            	log.debug(FILE_DEL_SUCC);
             dfosFile = null;
         }
         output.close();
