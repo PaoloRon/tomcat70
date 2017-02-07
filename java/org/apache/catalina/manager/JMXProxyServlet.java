@@ -69,45 +69,45 @@ public class JMXProxyServlet extends HttpServlet  {
      *
      * @param request The servlet request we are processing
      * @param response The servlet response we are creating
-     *
-     * @exception IOException if an input/output error occurs
-     * @exception ServletException if a servlet-specified error occurs
      */
     @Override
     public void doGet(HttpServletRequest request,
                       HttpServletResponse response)
-        throws IOException, ServletException
     {
 
-        response.setContentType("text/plain");
+        try {
+			response.setContentType("text/plain");
 
-        PrintWriter writer = response.getWriter();
+			PrintWriter writer = response.getWriter();
 
-        if( mBeanServer==null ) {
-            writer.println("Error - No mbean server");
-            return;
-        }
+			if( mBeanServer==null ) {
+			    writer.println("Error - No mbean server");
+			    return;
+			}
 
-        String qry=request.getParameter("set");
-        if( qry!= null ) {
-            String name=request.getParameter("att");
-            String val=request.getParameter("val");
+			String qry=request.getParameter("set");
+			if( qry!= null ) {
+			    String name=request.getParameter("att");
+			    String val=request.getParameter("val");
 
-            setAttribute( writer, qry, name, val );
-            return;
-        }
-        qry=request.getParameter("get");
-        if( qry!= null ) {
-            String name=request.getParameter("att");
-            getAttribute( writer, qry, name );
-            return;
-        }        
-        qry=request.getParameter("qry");
-        if( qry == null ) {
-            qry = "*:*";
-        }
+			    setAttribute( writer, qry, name, val );
+			    return;
+			}
+			qry=request.getParameter("get");
+			if( qry!= null ) {
+			    String name=request.getParameter("att");
+			    getAttribute( writer, qry, name );
+			    return;
+			}        
+			qry=request.getParameter("qry");
+			if( qry == null ) {
+			    qry = "*:*";
+			}
 
-        listBeans( writer, qry );
+			listBeans( writer, qry );
+		} catch (IOException e) {
+			log(e.getMessage());
+		}
 
     }
 

@@ -151,7 +151,11 @@ public final class HTMLManagerServlet extends ManagerServlet {
                 sm.getString("managerServlet.unknownCommand", command);
         }
 
-        list(request, response, message);
+        try {
+			list(request, response, message);
+		} catch (Exception e) {
+			log(e.getMessage());
+		}
     }
 
     /**
@@ -202,32 +206,36 @@ public final class HTMLManagerServlet extends ManagerServlet {
             }
         }
         
-        if (command == null || command.length() == 0) {
-            // No command == list
-            // List always displayed -> do nothing
-        } else if (command.equals("/upload")) {
-            message = upload(request);
-        } else if (command.equals("/deploy")) {
-            message = deployInternal(deployConfig, deployPath, deployWar);
-        } else if (command.equals("/reload")) {
-            message = reload(path);
-        } else if (command.equals("/undeploy")) {
-            message = undeploy(path);
-        } else if (command.equals("/expire")) {
-            message = expireSessions(path, request);
-        } else if (command.equals("/start")) {
-            message = start(path);
-        } else if (command.equals("/stop")) {
-            message = stop(path);
-        } else if (command.equals("/findleaks")) {
-            message = findleaks();
-        } else {
-            // Try GET
-            doGet(request,response);
-            return;
-        }
+        try {
+			if (command == null || command.length() == 0) {
+			    // No command == list
+			    // List always displayed -> do nothing
+			} else if (command.equals("/upload")) {
+			    message = upload(request);
+			} else if (command.equals("/deploy")) {
+			    message = deployInternal(deployConfig, deployPath, deployWar);
+			} else if (command.equals("/reload")) {
+			    message = reload(path);
+			} else if (command.equals("/undeploy")) {
+			    message = undeploy(path);
+			} else if (command.equals("/expire")) {
+			    message = expireSessions(path, request);
+			} else if (command.equals("/start")) {
+			    message = start(path);
+			} else if (command.equals("/stop")) {
+			    message = stop(path);
+			} else if (command.equals("/findleaks")) {
+			    message = findleaks();
+			} else {
+			    // Try GET
+			    doGet(request,response);
+			    return;
+			}
 
-        list(request, response, message);
+			list(request, response, message);
+		} catch (Exception e) {
+			log(e.getMessage());
+		}
     }
 
     /**
@@ -842,24 +850,28 @@ public final class HTMLManagerServlet extends ManagerServlet {
         if (debug >= 1) {
             log("sessions: Session action '" + action + "' for web application at '" + path + "'");
         }
-        if ("sessionDetail".equals(action)) {
-	        String sessionId = req.getParameter("sessionId");
-	        displaySessionDetailPage(req, resp, path, sessionId);
-	        return;
-        } else if ("invalidateSessions".equals(action)) {
-            String[] sessionIds = req.getParameterValues("sessionIds");
-            int i = invalidateSessions(path, sessionIds);
-            req.setAttribute(APPLICATION_MESSAGE, "" + i + " sessions invalidated.");
-        } else if ("removeSessionAttribute".equals(action)) {
-            String sessionId = req.getParameter("sessionId");
-            String name = req.getParameter("attributeName");
-            boolean removed = removeSessionAttribute(path, sessionId, name);
-            String outMessage = removed ? "Session attribute '" + name + "' removed." : "Session did not contain any attribute named '" + name + "'";
-            req.setAttribute(APPLICATION_MESSAGE, outMessage);
-            resp.sendRedirect(resp.encodeRedirectURL(req.getRequestURL().append("?path=").append(path).append("&action=sessionDetail&sessionId=").append(sessionId).toString()));
-            return;
-        } // else
-        displaySessionsListPage(path, req, resp);
+        try {
+			if ("sessionDetail".equals(action)) {
+			    String sessionId = req.getParameter("sessionId");
+			    displaySessionDetailPage(req, resp, path, sessionId);
+			    return;
+			} else if ("invalidateSessions".equals(action)) {
+			    String[] sessionIds = req.getParameterValues("sessionIds");
+			    int i = invalidateSessions(path, sessionIds);
+			    req.setAttribute(APPLICATION_MESSAGE, "" + i + " sessions invalidated.");
+			} else if ("removeSessionAttribute".equals(action)) {
+			    String sessionId = req.getParameter("sessionId");
+			    String name = req.getParameter("attributeName");
+			    boolean removed = removeSessionAttribute(path, sessionId, name);
+			    String outMessage = removed ? "Session attribute '" + name + "' removed." : "Session did not contain any attribute named '" + name + "'";
+			    req.setAttribute(APPLICATION_MESSAGE, outMessage);
+			    resp.sendRedirect(resp.encodeRedirectURL(req.getRequestURL().append("?path=").append(path).append("&action=sessionDetail&sessionId=").append(sessionId).toString()));
+			    return;
+			} // else
+			displaySessionsListPage(path, req, resp);
+		} catch (Exception e) {
+			log(e.getMessage());
+		}
     }
 
     protected Session[] getSessionsForPath(String path) {

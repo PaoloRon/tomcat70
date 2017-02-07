@@ -192,76 +192,89 @@ public class StatusManagerServlet
         }
         StatusTransformer.setContentType(response, mode);
 
-        PrintWriter writer = response.getWriter();
-
-        boolean completeStatus = false;
-        if ((request.getPathInfo() != null) 
-            && (request.getPathInfo().equals("/all"))) {
-            completeStatus = true;
-        }
-        // use StatusTransformer to output status
-        StatusTransformer.writeHeader(writer,mode);
-
-        // Body Header Section
-        Object[] args = new Object[2];
-        args[0] = request.getContextPath();
-        if (completeStatus) {
-            args[1] = sm.getString("statusServlet.complete");
-        } else {
-            args[1] = sm.getString("statusServlet.title");
-        }
-        // use StatusTransformer to output status
-        StatusTransformer.writeBody(writer,args,mode);
-
-        // Manager Section
-        args = new Object[9];
-        args[0] = sm.getString("htmlManagerServlet.manager");
-        args[1] = response.encodeURL(request.getContextPath() + "/html/list");
-        args[2] = sm.getString("htmlManagerServlet.list");
-        args[3] = response.encodeURL
-            (request.getContextPath() + "/" +
-             sm.getString("htmlManagerServlet.helpHtmlManagerFile"));
-        args[4] = sm.getString("htmlManagerServlet.helpHtmlManager");
-        args[5] = response.encodeURL
-            (request.getContextPath() + "/" +
-             sm.getString("htmlManagerServlet.helpManagerFile"));
-        args[6] = sm.getString("htmlManagerServlet.helpManager");
-        if (completeStatus) {
-            args[7] = response.encodeURL
-                (request.getContextPath() + "/status");
-            args[8] = sm.getString("statusServlet.title");
-        } else {
-            args[7] = response.encodeURL
-                (request.getContextPath() + "/status/all");
-            args[8] = sm.getString("statusServlet.complete");
-        }
-        // use StatusTransformer to output status
-        StatusTransformer.writeManager(writer,args,mode);
-
-        // Server Header Section
-        args = new Object[7];
-        args[0] = sm.getString("htmlManagerServlet.serverTitle");
-        args[1] = sm.getString("htmlManagerServlet.serverVersion");
-        args[2] = sm.getString("htmlManagerServlet.serverJVMVersion");
-        args[3] = sm.getString("htmlManagerServlet.serverJVMVendor");
-        args[4] = sm.getString("htmlManagerServlet.serverOSName");
-        args[5] = sm.getString("htmlManagerServlet.serverOSVersion");
-        args[6] = sm.getString("htmlManagerServlet.serverOSArch");
-        // use StatusTransformer to output status
-        StatusTransformer.writePageHeading(writer,args,mode);
-
-        // Server Row Section
-        args = new Object[6];
-        args[0] = ServerInfo.getServerInfo();
-        args[1] = System.getProperty("java.runtime.version");
-        args[2] = System.getProperty("java.vm.vendor");
-        args[3] = System.getProperty("os.name");
-        args[4] = System.getProperty("os.version");
-        args[5] = System.getProperty("os.arch");
-        // use StatusTransformer to output status
-        StatusTransformer.writeServerInfo(writer, args, mode);
-
         try {
+			PrintWriter writer = response.getWriter();
+
+			boolean completeStatus = false;
+			if ((request.getPathInfo() != null) 
+			    && (request.getPathInfo().equals("/all"))) {
+			    completeStatus = true;
+			}
+			// use StatusTransformer to output status
+			StatusTransformer.writeHeader(writer,mode);
+
+			// Body Header Section
+			Object[] args = new Object[2];
+			args[0] = request.getContextPath();
+			if (completeStatus) {
+			    args[1] = sm.getString("statusServlet.complete");
+			} else {
+			    args[1] = sm.getString("statusServlet.title");
+			}
+			// use StatusTransformer to output status
+			StatusTransformer.writeBody(writer,args,mode);
+
+			// Manager Section
+			args = new Object[9];
+			args[0] = sm.getString("htmlManagerServlet.manager");
+			args[1] = response.encodeURL(request.getContextPath() + "/html/list");
+			args[2] = sm.getString("htmlManagerServlet.list");
+			args[3] = response.encodeURL
+			    (request.getContextPath() + "/" +
+			     sm.getString("htmlManagerServlet.helpHtmlManagerFile"));
+			args[4] = sm.getString("htmlManagerServlet.helpHtmlManager");
+			args[5] = response.encodeURL
+			    (request.getContextPath() + "/" +
+			     sm.getString("htmlManagerServlet.helpManagerFile"));
+			args[6] = sm.getString("htmlManagerServlet.helpManager");
+			if (completeStatus) {
+			    args[7] = response.encodeURL
+			        (request.getContextPath() + "/status");
+			    args[8] = sm.getString("statusServlet.title");
+			} else {
+			    args[7] = response.encodeURL
+			        (request.getContextPath() + "/status/all");
+			    args[8] = sm.getString("statusServlet.complete");
+			}
+			// use StatusTransformer to output status
+			StatusTransformer.writeManager(writer,args,mode);
+
+			// Server Header Section
+			args = new Object[7];
+			args[0] = sm.getString("htmlManagerServlet.serverTitle");
+			args[1] = sm.getString("htmlManagerServlet.serverVersion");
+			args[2] = sm.getString("htmlManagerServlet.serverJVMVersion");
+			args[3] = sm.getString("htmlManagerServlet.serverJVMVendor");
+			args[4] = sm.getString("htmlManagerServlet.serverOSName");
+			args[5] = sm.getString("htmlManagerServlet.serverOSVersion");
+			args[6] = sm.getString("htmlManagerServlet.serverOSArch");
+			// use StatusTransformer to output status
+			StatusTransformer.writePageHeading(writer,args,mode);
+
+			// Server Row Section
+			args = new Object[6];
+			args[0] = ServerInfo.getServerInfo();
+			args[1] = System.getProperty("java.runtime.version");
+			args[2] = System.getProperty("java.vm.vendor");
+			args[3] = System.getProperty("os.name");
+			args[4] = System.getProperty("os.version");
+			args[5] = System.getProperty("os.arch");
+			// use StatusTransformer to output status
+			StatusTransformer.writeServerInfo(writer, args, mode);
+
+			writeStatuses(request, mode, writer);
+
+			// use StatusTransformer to output status
+			StatusTransformer.writeFooter(writer, mode);
+		} catch (Exception e) {
+			log(e.getMessage());
+		}
+
+    }
+
+
+	private void writeStatuses(HttpServletRequest request, int mode, PrintWriter writer) throws ServletException {
+		try {
 
             // Display operating system statistics using APR if available
             StatusTransformer.writeOSState(writer,mode);
@@ -291,11 +304,7 @@ public class StatusManagerServlet
         } catch (Exception e) {
             throw new ServletException(e);
         }
-
-        // use StatusTransformer to output status
-        StatusTransformer.writeFooter(writer, mode);
-
-    }
+	}
 
     // ------------------------------------------- NotificationListener Methods
 

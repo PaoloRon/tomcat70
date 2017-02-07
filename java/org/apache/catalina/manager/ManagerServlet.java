@@ -332,49 +332,53 @@ public class ManagerServlet
 
         // Prepare our output writer to generate the response message
         response.setContentType("text/plain; charset=" + Constants.CHARSET);
-        PrintWriter writer = response.getWriter();
+        try {
+			PrintWriter writer = response.getWriter();
 
-        // Process the requested command (note - "/deploy" is not listed here)
-        if (command == null) {
-            writer.println(sm.getString("managerServlet.noCommand"));
-        } else if (command.equals("/deploy")) {
-            if (war != null || config != null) {
-                deploy(writer, config, path, war, update);
-            } else {
-                deploy(writer, path, tag);
-            }
-        } else if (command.equals("/list")) {
-            list(writer);
-        } else if (command.equals("/reload")) {
-            reload(writer, path);
-        } else if (command.equals("/resources")) {
-            resources(writer, type);
-        } else if (command.equals("/roles")) {
-            roles(writer);
-        } else if (command.equals("/save")) {
-            save(writer, path);
-        } else if (command.equals("/serverinfo")) {
-            serverinfo(writer);
-        } else if (command.equals("/sessions")) {
-            expireSessions(writer, path, request);
-        } else if (command.equals("/expire")) {
-            expireSessions(writer, path, request);
-        } else if (command.equals("/start")) {
-            start(writer, path);
-        } else if (command.equals("/stop")) {
-            stop(writer, path);
-        } else if (command.equals("/undeploy")) {
-            undeploy(writer, path);
-        } else if (command.equals("/findleaks")) {
-            findleaks(writer);
-        } else {
-            writer.println(sm.getString("managerServlet.unknownCommand",
-                                        command));
-        }
+			// Process the requested command (note - "/deploy" is not listed here)
+			if (command == null) {
+			    writer.println(sm.getString("managerServlet.noCommand"));
+			} else if (command.equals("/deploy")) {
+			    if (war != null || config != null) {
+			        deploy(writer, config, path, war, update);
+			    } else {
+			        deploy(writer, path, tag);
+			    }
+			} else if (command.equals("/list")) {
+			    list(writer);
+			} else if (command.equals("/reload")) {
+			    reload(writer, path);
+			} else if (command.equals("/resources")) {
+			    resources(writer, type);
+			} else if (command.equals("/roles")) {
+			    roles(writer);
+			} else if (command.equals("/save")) {
+			    save(writer, path);
+			} else if (command.equals("/serverinfo")) {
+			    serverinfo(writer);
+			} else if (command.equals("/sessions")) {
+			    expireSessions(writer, path, request);
+			} else if (command.equals("/expire")) {
+			    expireSessions(writer, path, request);
+			} else if (command.equals("/start")) {
+			    start(writer, path);
+			} else if (command.equals("/stop")) {
+			    stop(writer, path);
+			} else if (command.equals("/undeploy")) {
+			    undeploy(writer, path);
+			} else if (command.equals("/findleaks")) {
+			    findleaks(writer);
+			} else {
+			    writer.println(sm.getString("managerServlet.unknownCommand",
+			                                command));
+			}
 
-        // Finish up the response
-        writer.flush();
-        writer.close();
+			// Finish up the response
+			writer.flush();
+			writer.close();
+		} catch (Exception e) {
+			log(e.getMessage());
+		}
 
     }
 
@@ -407,21 +411,25 @@ public class ManagerServlet
 
         // Prepare our output writer to generate the response message
         response.setContentType("text/plain;charset="+Constants.CHARSET);
-        PrintWriter writer = response.getWriter();
+        try {
+			PrintWriter writer = response.getWriter();
 
-        // Process the requested command
-        if (command == null) {
-            writer.println(sm.getString("managerServlet.noCommand"));
-        } else if (command.equals("/deploy")) {
-            deploy(writer, path, tag, update, request);
-        } else {
-            writer.println(sm.getString("managerServlet.unknownCommand",
-                                        command));
-        }
+			// Process the requested command
+			if (command == null) {
+			    writer.println(sm.getString("managerServlet.noCommand"));
+			} else if (command.equals("/deploy")) {
+			    deploy(writer, path, tag, update, request);
+			} else {
+			    writer.println(sm.getString("managerServlet.unknownCommand",
+			                                command));
+			}
 
-        // Finish up the response
-        writer.flush();
-        writer.close();
+			// Finish up the response
+			writer.flush();
+			writer.close();
+		} catch (Exception e) {
+			log(e.getMessage());
+		}
 
     }
 
