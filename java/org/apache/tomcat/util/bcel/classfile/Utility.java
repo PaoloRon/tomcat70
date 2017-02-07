@@ -28,7 +28,10 @@ import org.apache.tomcat.util.bcel.util.ByteSequence;
  * @author  <A HREF="mailto:m.dahm@gmx.de">M. Dahm</A>
  */
 public abstract class Utility {
-
+	
+	private static final org.apache.juli.logging.Log log=
+	        org.apache.juli.logging.LogFactory.getLog(Utility.class);
+	        		
     private static int unwrap( ThreadLocal tl ) {
         return ((Integer) tl.get()).intValue();
     }
@@ -141,8 +144,9 @@ public abstract class Utility {
                 }
             }
         } catch (IOException e) {
-            System.out.println(buf.toString());
-            e.printStackTrace();
+            //System.out.println(buf.toString());
+            if(log.isErrorEnabled()) 
+				log.error(buf.toString(), e);
             throw new ClassFormatException("Byte code error: " + e, e);
         }
         return buf.toString();
