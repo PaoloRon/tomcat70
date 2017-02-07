@@ -242,6 +242,11 @@ public class ManagerServlet
      * The Wrapper container associated with this servlet.
      */
     protected Wrapper wrapper = null;
+    
+    /**
+     * Log message costant for war parameter.
+     */
+    private static final String WARSUCC = "war successfully deleted";
 
 
     // ----------------------------------------------- ContainerServlet Methods
@@ -1359,11 +1364,11 @@ public class ManagerServlet
                     File dir = new File(getAppBase(), getDocBase(path));
                     File xml = new File(configBase, getConfigFile(path) + ".xml");
                     if (war.exists() && war.delete()) {
-                        log("successfully deleted");
+                        log(WARSUCC);
                     } else if (dir.exists()) {
                         undeployDir(dir);
                     } else if(xml.delete()){
-                        log("successfully deleted");
+                        log("xml successfully deleted");
                     }
                     // Perform new deployment
                     check(path.replace('#', '/'));
@@ -1535,7 +1540,7 @@ public class ManagerServlet
         throws IOException {
 
         if(war.delete())
-        	log("successfully deleted");
+        	log(WARSUCC);
         ServletInputStream istream = null;
         BufferedOutputStream ostream = null;
         try {
@@ -1557,7 +1562,7 @@ public class ManagerServlet
             istream = null;
         } catch (IOException e) {
             if(war.delete())
-            	log("successfully deleted");
+            	log(WARSUCC);
             throw e;
         } finally {
             if (ostream != null) {
