@@ -603,7 +603,8 @@ public class AccessLogValve extends ValveBase implements AccessLog {
             File holder = currentLogFile;
             close();
             try {
-                holder.renameTo(new File(newFileName));
+                if(holder.renameTo(new File(newFileName)))
+                	log.debug("file renamed successfully");
             } catch (Throwable e) {
                 log.error("rotate failed", e);
             }
