@@ -154,7 +154,8 @@ public final class Parameters {
             decodedQuery.duplicate( queryMB );
         } catch (IOException e) {
             // Can't happen, as decodedQuery can't overflow
-            e.printStackTrace();
+        	 if(log.isErrorEnabled())
+           	   log.error("This should not happen", e);
         }
         processParameters( decodedQuery, queryStringEncoding );
     }

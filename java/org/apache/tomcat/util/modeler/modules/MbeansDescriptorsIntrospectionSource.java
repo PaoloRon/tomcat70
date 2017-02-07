@@ -393,7 +393,8 @@ public class MbeansDescriptorsIntrospectionSource extends ModelerSource
 
             return mbean;
         } catch( Exception ex ) {
-            ex.printStackTrace();
+           if(log.isErrorEnabled())
+        	   log.error("Unexpected error", ex);
             return null;
         }
     }

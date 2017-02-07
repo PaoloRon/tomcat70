@@ -161,6 +161,10 @@ public final class C2BConverter {
  * 
  */
  final class	WriteConvertor extends OutputStreamWriter {
+	 
+	 private static final org.apache.juli.logging.Log log=
+		        org.apache.juli.logging.LogFactory.getLog(WriteConvertor.class);
+	 
     // stream with flush() and close(). overridden.
     private IntermediateOutputStream ios;
     
@@ -207,7 +211,8 @@ public final class C2BConverter {
 	    //	    System.out.println("Reseting writer");
 	    flush();
 	} catch( Exception ex ) {
-	    ex.printStackTrace();
+		 if(log.isErrorEnabled())
+       	   log.error("Unexpected error", ex);
 	}
 	ios.enable();
     }
