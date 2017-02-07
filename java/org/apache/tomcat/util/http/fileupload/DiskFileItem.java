@@ -30,6 +30,10 @@ import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
+import org.apache.naming.resources.FileDirContext;
+
+import sun.rmi.runtime.Log;
+
 
 /**
  * <p> The default implementation of the
@@ -68,6 +72,10 @@ import java.util.Map;
  */
 public class DiskFileItem
     implements FileItem, FileItemHeadersSupport {
+	
+	private static final org.apache.juli.logging.Log log=
+	        org.apache.juli.logging.LogFactory.getLog( DiskFileItem.class );
+
 
     // ----------------------------------------------------- Manifest constants
 
@@ -470,9 +478,8 @@ public class DiskFileItem
     public void delete() {
         cachedContent = null;
         File outputFile = getStoreLocation();
-        if (outputFile != null && outputFile.exists()) {
-            outputFile.delete();
-        }
+        if (outputFile != null && outputFile.exists() && outputFile.delete())
+            log.debug("file successfully deleted");
     }
 
 
@@ -583,9 +590,8 @@ public class DiskFileItem
     protected void finalize() {
         File outputFile = dfos.getFile();
 
-        if (outputFile != null && outputFile.exists()) {
-            outputFile.delete();
-        }
+        if (outputFile != null && outputFile.exists() && outputFile.delete())
+            log.debug("file successfully deleted");
     }
 
 
@@ -702,7 +708,8 @@ public class DiskFileItem
         } else {
             FileInputStream input = new FileInputStream(dfosFile);
             IOUtils.copy(input, output);
-            dfosFile.delete();
+            if(dfosFile.delete())
+            	log.debug("file successfully deleted");
             dfosFile = null;
         }
         output.close();
