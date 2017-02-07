@@ -559,7 +559,8 @@ public class MemoryUserDatabase implements UserDatabase {
             // Check for errors that occurred while printing
             if (writer.checkError()) {
                 writer.close();
-                fileNew.delete();
+                if(fileNew.delete())
+                	log.debug("new file successfully deleted");
                 throw new IOException
                     (sm.getString("memoryUserDatabase.writeException",
                                   fileNew.getAbsolutePath()));
@@ -569,7 +570,8 @@ public class MemoryUserDatabase implements UserDatabase {
             if (writer != null) {
                 writer.close();
             }
-            fileNew.delete();
+            if(fileNew.delete())
+            	log.debug("new file successfully deleted");
             throw e;
         }
 
@@ -579,14 +581,16 @@ public class MemoryUserDatabase implements UserDatabase {
             fileOld =
                 new File(System.getProperty("catalina.base"), pathnameOld);
         }
-        fileOld.delete();
+        if(fileOld.delete())
+        	log.debug("old file successfully deleted");
+        
         File fileOrig = new File(pathname);
         if (!fileOrig.isAbsolute()) {
             fileOrig =
                 new File(System.getProperty("catalina.base"), pathname);
         }
-        if (fileOrig.exists()) {
-            fileOld.delete();
+        if (fileOrig.exists() && fileOld.delete()) {
+            log.debug("old file successfully deleted");
             if (!fileOrig.renameTo(fileOld)) {
                 throw new IOException
                     (sm.getString("memoryUserDatabase.renameOld",
@@ -594,14 +598,15 @@ public class MemoryUserDatabase implements UserDatabase {
             }
         }
         if (!fileNew.renameTo(fileOrig)) {
-            if (fileOld.exists()) {
-                fileOld.renameTo(fileOrig);
+            if (fileOld.exists() && fileOld.renameTo(fileOrig)) {
+                log.debug("old file successfully renamed");
             }
             throw new IOException
                 (sm.getString("memoryUserDatabase.renameNew",
                               fileOrig.getAbsolutePath()));
         }
-        fileOld.delete();
+        if(fileOld.delete())
+        	log.debug("old file successflly deleted");
 
     }
 
