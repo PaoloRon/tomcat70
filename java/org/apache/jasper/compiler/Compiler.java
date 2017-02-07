@@ -266,7 +266,8 @@ public abstract class Compiler {
                 }
             }
             // Remove the generated .java file
-            new File(javaFileName).delete();
+            if(new File(javaFileName).delete())
+            	log.debug("new fie successfully deleted");
             throw e;
         } finally {
             if (writer != null) {
@@ -546,7 +547,8 @@ public abstract class Compiler {
                 File classFile = new File(classFileName);
                 if (log.isDebugEnabled())
                     log.debug("Deleting " + classFile);
-                classFile.delete();
+                if(classFile.delete())
+                	log.debug("file successfully deleted");
             }
         } catch (Exception e) {
             // Remove as much as possible, ignore possible exceptions
@@ -557,7 +559,8 @@ public abstract class Compiler {
                 File javaFile = new File(javaFileName);
                 if (log.isDebugEnabled())
                     log.debug("Deleting " + javaFile);
-                javaFile.delete();
+                if(javaFile.delete())
+                	log.debug("file successfully deleted");
             }
         } catch (Exception e) {
             // Remove as much as possible, ignore possible exceptions
@@ -571,7 +574,8 @@ public abstract class Compiler {
                 File classFile = new File(classFileName);
                 if (log.isDebugEnabled())
                     log.debug("Deleting " + classFile);
-                classFile.delete();
+                if(classFile.delete())
+                	log.debug("file successfully deleted");
             }
         } catch (Exception e) {
             // Remove as much as possible, ignore possible exceptions

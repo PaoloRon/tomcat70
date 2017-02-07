@@ -250,7 +250,8 @@ public class AntCompiler extends Compiler {
 
         if (!ctxt.keepGenerated()) {
             File javaFile = new File(javaFileName);
-            javaFile.delete();
+            if(javaFile.delete())
+            	log.debug("file successfully deleted");
         }
         
         if (be != null) {
