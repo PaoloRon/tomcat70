@@ -25,6 +25,9 @@ import javax.naming.NamingException;
 import javax.naming.Reference;
 import javax.naming.RefAddr;
 import javax.naming.spi.ObjectFactory;
+
+import org.apache.juli.logging.Log;
+import org.apache.juli.logging.LogFactory;
 import org.apache.naming.ResourceRef;
 
 import java.beans.Introspector;
@@ -87,6 +90,8 @@ import java.lang.reflect.Method;
 public class BeanFactory
     implements ObjectFactory {
 
+	private static final Log log = LogFactory.getLog(BeanFactory.class);
+	
     // ----------------------------------------------------------- Constructors
 
 
@@ -129,7 +134,8 @@ public class BeanFactory
                     try {
                         beanClass = Class.forName(beanClassName);
                     } catch(ClassNotFoundException e) {
-                        e.printStackTrace();
+                    	if(log.isErrorEnabled())
+                 	    	log.error(beanClassName+" not found", e);
                     }
                 }
                 if (beanClass == null) {

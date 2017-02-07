@@ -18,6 +18,10 @@
 package org.apache.naming;
 
 import javax.naming.Context;
+
+import org.apache.juli.logging.Log;
+import org.apache.juli.logging.LogFactory;
+
 import javax.management.NotificationBroadcasterSupport;
 import javax.management.ObjectName;
 import javax.management.MBeanServer;
@@ -36,7 +40,8 @@ public final class NamingService
     extends NotificationBroadcasterSupport
     implements NamingServiceMBean, MBeanRegistration {
     
-    
+	private static final Log log = LogFactory.getLog(NamingService.class);
+	
     // ----------------------------------------------------- Instance Variables
     
     
@@ -201,7 +206,8 @@ public final class NamingService
         } catch (Throwable t) {
             
             // FIXME
-            t.printStackTrace();
+        	if(log.isErrorEnabled())
+     	    	log.error("Unexpected error", t);
             
         }
         
