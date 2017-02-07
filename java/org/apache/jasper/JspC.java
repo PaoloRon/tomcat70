@@ -1063,8 +1063,10 @@ public class JspC implements Options {
         fis.close();
         fos.close();
 
-        webXml2.delete();
-        (new File(webxmlFile)).delete();
+        if(webXml2.delete())
+        	log.debug("file successfully deleted");
+        if((new File(webxmlFile)).delete())
+        	log.debug("new ile successfully deleted");
 
     }
     
