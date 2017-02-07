@@ -31,6 +31,9 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
+import org.apache.juli.logging.Log;
+import org.apache.juli.logging.LogFactory;
+
 
 /**
  * Provides an abstract class to be subclassed to create
@@ -75,7 +78,8 @@ import javax.servlet.ServletResponse;
  */
 public abstract class HttpServlet extends GenericServlet {
 
-    private static final String METHOD_DELETE = "DELETE";
+    private static final String UNEXPECTED_PROBLEM = "An unexpected problem occured.";
+	private static final String METHOD_DELETE = "DELETE";
     private static final String METHOD_HEAD = "HEAD";
     private static final String METHOD_GET = "GET";
     private static final String METHOD_OPTIONS = "OPTIONS";
@@ -91,6 +95,7 @@ public abstract class HttpServlet extends GenericServlet {
     private static ResourceBundle lStrings =
         ResourceBundle.getBundle(LSTRING_FILE);
    
+    private static final Log log = LogFactory.getLog(HttpServlet.class);
     
     /**
      * Does nothing, because this is an abstract class.
@@ -170,9 +175,19 @@ public abstract class HttpServlet extends GenericServlet {
         String protocol = req.getProtocol();
         String msg = lStrings.getString("http.method_get_not_supported");
         if (protocol.endsWith("1.1")) {
-            resp.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED, msg);
+            try {
+				resp.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED, msg);
+			} catch (Exception e) {
+				if(log.isErrorEnabled())
+					log.error(UNEXPECTED_PROBLEM, e);
+			}
         } else {
-            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, msg);
+            try {
+                resp.sendError(HttpServletResponse.SC_BAD_REQUEST, msg);
+			} catch (Exception e) {
+				if(log.isErrorEnabled())
+					log.error(UNEXPECTED_PROBLEM, e);
+			}
         }
     }
 
@@ -240,7 +255,12 @@ public abstract class HttpServlet extends GenericServlet {
 
         NoBodyResponse response = new NoBodyResponse(resp);
 
-        doGet(req, response);
+        try {
+			doGet(req, response);
+		} catch (Exception e) {
+			if(log.isErrorEnabled())
+				log.error(UNEXPECTED_PROBLEM, e);
+		}
         response.setContentLength();
     }
 
@@ -308,9 +328,19 @@ public abstract class HttpServlet extends GenericServlet {
         String protocol = req.getProtocol();
         String msg = lStrings.getString("http.method_post_not_supported");
         if (protocol.endsWith("1.1")) {
-            resp.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED, msg);
+            try {
+				resp.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED, msg);
+			} catch (Exception e) {
+				if(log.isErrorEnabled())
+					log.error(UNEXPECTED_PROBLEM, e);
+			}
         } else {
-            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, msg);
+            try {
+				resp.sendError(HttpServletResponse.SC_BAD_REQUEST, msg);
+			} catch (Exception e) {
+				if(log.isErrorEnabled())
+					log.error(UNEXPECTED_PROBLEM, e);
+			}
         }
     }
 
@@ -363,9 +393,19 @@ public abstract class HttpServlet extends GenericServlet {
         String protocol = req.getProtocol();
         String msg = lStrings.getString("http.method_put_not_supported");
         if (protocol.endsWith("1.1")) {
-            resp.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED, msg);
+            try {
+				resp.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED, msg);
+			} catch (Exception e) {
+				if(log.isErrorEnabled())
+					log.error(UNEXPECTED_PROBLEM, e);
+			}
         } else {
-            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, msg);
+            try {
+				resp.sendError(HttpServletResponse.SC_BAD_REQUEST, msg);
+			} catch (Exception e) {
+				if(log.isErrorEnabled())
+					log.error(UNEXPECTED_PROBLEM, e);
+			}
         }
     }
 
@@ -411,9 +451,19 @@ public abstract class HttpServlet extends GenericServlet {
         String protocol = req.getProtocol();
         String msg = lStrings.getString("http.method_delete_not_supported");
         if (protocol.endsWith("1.1")) {
-            resp.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED, msg);
+            try {
+				resp.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED, msg);
+			} catch (Exception e) {
+				if(log.isErrorEnabled())
+					log.error(UNEXPECTED_PROBLEM, e);
+			}
         } else {
-            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, msg);
+            try {
+				resp.sendError(HttpServletResponse.SC_BAD_REQUEST, msg);
+			} catch (Exception e) {
+				if(log.isErrorEnabled())
+					log.error(UNEXPECTED_PROBLEM, e);
+			}
         }
     }
     
@@ -576,9 +626,14 @@ public abstract class HttpServlet extends GenericServlet {
         
         resp.setContentType("message/http");
         resp.setContentLength(responseLength);
-        ServletOutputStream out = resp.getOutputStream();
-        out.print(buffer.toString());        
-        out.close();
+        try {
+			ServletOutputStream out = resp.getOutputStream();
+			out.print(buffer.toString());        
+			out.close();
+		} catch (Exception e) {
+			if(log.isErrorEnabled())
+				log.error(UNEXPECTED_PROBLEM, e);
+		}
         return;
     }                
 
