@@ -143,7 +143,8 @@ public class FileMessageFactory {
             log.debug("open file " + f + " write " + openForWrite);
         if (openForWrite) {
             if (!file.exists())
-                file.createNewFile();
+            	if(file.createNewFile())
+            		log.debug("file succesfully created");
             out = new FileOutputStream(f);
         } else {
             size = file.length();
