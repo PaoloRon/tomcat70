@@ -152,7 +152,7 @@ public class StatusManagerServlet
             mBeanServer.addNotificationListener(objectName, this, null, null);
 
         } catch (Exception e) {
-            e.printStackTrace();
+            log(e.getMessage());
         }
 
     }
