@@ -257,7 +257,7 @@ implements org.apache.catalina.ha.ClusterSession{
             SimpleTcpReplicationManager.log.error("ReplicatedSession: " + message,x);
         } else {
             System.out.println("ReplicatedSession: " + message);
-            x.printStackTrace();
+            log(x.getStackTrace().toString(), x);
         }
 
     }
