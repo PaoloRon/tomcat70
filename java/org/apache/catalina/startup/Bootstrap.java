@@ -390,7 +390,8 @@ public final class Bootstrap {
             try {
                 bootstrap.init();
             } catch (Throwable t) {
-                t.printStackTrace();
+                if(log.isErrorEnabled())
+                	log.error("Init failed", t);
                 return;
             }
             daemon = bootstrap;
@@ -419,7 +420,8 @@ public final class Bootstrap {
                 log.warn("Bootstrap: command \"" + command + "\" does not exist.");
             }
         } catch (Throwable t) {
-            t.printStackTrace();
+        	 if(log.isErrorEnabled())
+             	log.error("Daemon has encountered a problem executing the requested command", t);
         }
 
     }
