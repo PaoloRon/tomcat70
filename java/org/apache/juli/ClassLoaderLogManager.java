@@ -46,6 +46,8 @@ import java.util.logging.Logger;
  */
 public class ClassLoaderLogManager extends LogManager {
 
+	public static final org.apache.juli.logging.Log log = org.apache.juli.logging.LogFactory.getLog(ClassLoaderLogManager.class);
+	
     private final class Cleaner extends Thread {
         
         @Override
@@ -484,7 +486,7 @@ public class ClassLoaderLogManager extends LogManager {
         } catch (IOException e) {
             // Report error
             System.err.println("Configuration error");
-            e.printStackTrace();
+           log.error("Something wrong happened during loading", e);
         } finally {
             try {
                 is.close();
@@ -528,7 +530,7 @@ public class ClassLoaderLogManager extends LogManager {
                 } catch (Exception e) {
                     // Report error
                     System.err.println("Handler error");
-                    e.printStackTrace();
+                    log.error("Handler error", e);
                 }
             }
             
