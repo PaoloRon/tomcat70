@@ -18,7 +18,6 @@
 
 package org.apache.catalina.ha.backend;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -61,13 +60,15 @@ public class HeartbeatListener
     public void setTtl(int ttl) { this.ttl = ttl; }
     public int getTtl() { return ttl; }    
     private String loadProperties() {
-    	Properties prop = new Properties();
+    	Properties props = new Properties();
     	InputStream input = null;
     	String address="";
     	try {
-    		input = new FileInputStream("Addresses.properties");
-    		prop.load(input);
-    		address=prop.getProperty("ip");    		
+    		input = HeartbeatListener.class.getResourceAsStream
+    				("/org/apache/catalina/ha/backend/Addresses.properties");
+    		props.load(input);
+    		input.close();
+    		address=props.getProperty("ip");    		
     	} catch (IOException ex) {
     		log.error("Cannot load addresses properties", ex);
     	} finally {

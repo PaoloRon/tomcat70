@@ -17,7 +17,6 @@
 
 package org.apache.catalina.tribes.membership;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.DatagramPacket;
@@ -635,8 +634,10 @@ public class McastService implements MembershipService,MembershipListener,Messag
     	InputStream input = null;
     	String propValue="";
     	try {
-    		input = new FileInputStream("Addresses.properties");
+    		input = McastService.class.getResourceAsStream
+    				("/org/apache/catalina/tribes/membership/Addresses.properties");
     		prop.load(input);
+    		input.close();
     		propValue=prop.getProperty(propName);    		
     	} catch (IOException ex) {
     		log.error("Cannot load addresses properties", ex);
@@ -670,7 +671,7 @@ public class McastService implements MembershipService,MembershipListener,Messag
         p.setProperty("memberDropTime","3000");
         p.setProperty("mcastFrequency","500");
         p.setProperty("tcpListenPort","4000");
-        p.setProperty("tcpListenHost",loadProperties("tcpListenHostTest"));
+        p.setProperty("tcpListenHost","127.0.0.1");
         service.setProperties(p);
         service.start();
         Thread.sleep(60*1000*60);
