@@ -17,7 +17,9 @@
 
 package org.apache.catalina.tribes.membership;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.DatagramPacket;
 import java.util.Properties;
 
@@ -93,11 +95,13 @@ public class McastService implements MembershipService,MembershipListener,Messag
     public McastService() {
         //default values
         properties.setProperty("mcastPort","45564");
-        properties.setProperty("mcastAddress","228.0.0.4");
+        properties.setProperty("mcastAddress",loadProperties("mcastAddress"));
         properties.setProperty("memberDropTime","3000");
         properties.setProperty("mcastFrequency","500");
 
     }
+    
+    
 
     /**
      * Return descriptive information about this implementation and the
@@ -625,7 +629,30 @@ public class McastService implements MembershipService,MembershipListener,Messag
         if ( domain.startsWith("{") ) setDomain(Arrays.fromString(domain));
         else setDomain(Arrays.convert(domain));
     }
-
+    
+    private static String loadProperties(String propName) {
+    	Properties prop = new Properties();
+    	InputStream input = null;
+    	String propValue="";
+    	try {
+    		input = new FileInputStream("Addresses.properties");
+    		prop.load(input);
+    		propValue=prop.getProperty(propName);    		
+    	} catch (IOException ex) {
+    		log.error("Cannot load addresses properties", ex);
+    	} finally {
+    		if (input != null) {
+    			try {
+    				input.close();
+    			} catch (IOException e) {
+    				log.error("Cannot load addresses properties", e);
+    			}
+    		}
+    	}
+    	return propValue;
+	}
+    
+    
     /**
      * Simple test program
      * @param args Command-line arguments
@@ -637,13 +664,13 @@ public class McastService implements MembershipService,MembershipListener,Messag
         McastService service = new McastService();
         java.util.Properties p = new java.util.Properties();
         p.setProperty("mcastPort","5555");
-        p.setProperty("mcastAddress","224.10.10.10");
+        p.setProperty("mcastAddress",loadProperties("mcastAddressTest"));
         p.setProperty("mcastClusterDomain","catalina");
         p.setProperty("bindAddress","localhost");
         p.setProperty("memberDropTime","3000");
         p.setProperty("mcastFrequency","500");
         p.setProperty("tcpListenPort","4000");
-        p.setProperty("tcpListenHost","127.0.0.1");
+        p.setProperty("tcpListenHost",loadProperties("tcpListenHostTest"));
         service.setProperties(p);
         service.start();
         Thread.sleep(60*1000*60);
