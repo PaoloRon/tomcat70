@@ -460,7 +460,7 @@ public class Http11NioProcessor extends AbstractHttp11Processor implements Actio
             // Do sendfile as needed: add socket to sendfile and end
             if (sendfileData != null && !error) {
                 ka.setSendfileData(sendfileData);
-                sendfileData.keepAlive = keepAlive;
+                sendfileData.setKeepAlive(keepAlive);
                 SelectionKey key = socket.getIOChannel().keyFor(socket.getPoller().getSelector());
                 //do the first write on this thread, might as well
                 openSocket = socket.getPoller().processSendfile(key,ka,true,true);
@@ -1114,9 +1114,9 @@ public class Http11NioProcessor extends AbstractHttp11Processor implements Actio
                 outputBuffer.addActiveFilter(outputFilters[Constants.VOID_FILTER]);
                 contentDelimitation = true;
                 sendfileData = new NioEndpoint.SendfileData();
-                sendfileData.fileName = fileName;
-                sendfileData.pos = ((Long) request.getAttribute("org.apache.tomcat.sendfile.start")).longValue();
-                sendfileData.length = ((Long) request.getAttribute("org.apache.tomcat.sendfile.end")).longValue() - sendfileData.pos;
+                sendfileData.setFileName(fileName);
+                sendfileData.setPos(((Long) request.getAttribute("org.apache.tomcat.sendfile.start")).longValue());
+                sendfileData.setLength(((Long) request.getAttribute("org.apache.tomcat.sendfile.end")).longValue() - sendfileData.getPos());
             }
         }
 

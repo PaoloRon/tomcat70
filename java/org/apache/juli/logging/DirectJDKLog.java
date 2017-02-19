@@ -32,7 +32,7 @@ import java.util.logging.Logger;
  */
 class DirectJDKLog implements Log {
     // no reason to hide this - but good reasons to not hide
-    public Logger logger;
+    protected Logger logger;
     
     /** Alternate config reader and console format 
      */

@@ -260,16 +260,16 @@ public class SymbolTable {
         //
 
         /** Symbol. */
-        public String symbol;
+        protected String symbol;
 
         /**
          * Symbol characters. This information is duplicated here for
          * comparison performance.
          */
-        public char[] characters;
+        protected char[] characters;
 
         /** The next entry. */
-        public Entry next;
+        protected Entry next;
 
         //
         // Constructors

@@ -104,14 +104,22 @@ public interface SSLSupport {
     
     final class CipherData {
     
-        public String phrase = null;
+        private String phrase = null;
     
-        public int keySize = 0;
+        private int keySize = 0;
     
         public CipherData(String phrase, int keySize) {
             this.phrase = phrase;
             this.keySize = keySize;
         }
+
+		public String getPhrase() {
+			return phrase;
+		}
+
+		public int getKeySize() {
+			return keySize;
+		}	
     
     }
     

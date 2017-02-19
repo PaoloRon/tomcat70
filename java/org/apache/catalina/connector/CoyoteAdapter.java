@@ -600,8 +600,8 @@ public class CoyoteAdapter implements Adapter {
         }
         connector.getMapper().map(serverName, decodedURI, 
                                   request.getMappingData());
-        request.setContext((Context) request.getMappingData().context);
-        request.setWrapper((Wrapper) request.getMappingData().wrapper);
+        request.setContext((Context) request.getMappingData().getContext());
+        request.setWrapper((Wrapper) request.getMappingData().getWrapper());
 
         // Filter trace method
         if (!connector.getAllowTrace() 
@@ -647,7 +647,7 @@ public class CoyoteAdapter implements Adapter {
         }
 
         // Possible redirect
-        MessageBytes redirectPathMB = request.getMappingData().redirectPath;
+        MessageBytes redirectPathMB = request.getMappingData().getRedirectPath();
         if (!redirectPathMB.isNull()) {
             String redirectPath = urlEncoder.encode(redirectPathMB.toString());
             String query = request.getQueryString();
@@ -813,7 +813,7 @@ public class CoyoteAdapter implements Adapter {
         // context, don't go looking for a session ID in a cookie as a cookie
         // from a parent context with a session ID may be present which would
         // overwrite the valid session ID encoded in the URL
-        Context context = (Context) request.getMappingData().context;
+        Context context = (Context) request.getMappingData().getContext();
         if (context != null && !context.getServletContext()
                 .getEffectiveSessionTrackingModes().contains(
                         SessionTrackingMode.COOKIE))

@@ -26,19 +26,51 @@ import org.apache.tomcat.util.buf.MessageBytes;
  */
 public class MappingData {
 
-    public Object host = null;
-    public Object context = null;
-    public Object wrapper = null;
-    public boolean jspWildCard = false;
+    protected Object host = null;
+    protected Object context = null;
+    protected Object wrapper = null;
+    protected boolean jspWildCard = false;
 
-    public MessageBytes contextPath = MessageBytes.newInstance();
-    public MessageBytes requestPath = MessageBytes.newInstance();
-    public MessageBytes wrapperPath = MessageBytes.newInstance();
-    public MessageBytes pathInfo = MessageBytes.newInstance();
+    protected MessageBytes contextPath = MessageBytes.newInstance();
+    protected MessageBytes requestPath = MessageBytes.newInstance();
+    protected MessageBytes wrapperPath = MessageBytes.newInstance();
+    protected MessageBytes pathInfo = MessageBytes.newInstance();
 
-    public MessageBytes redirectPath = MessageBytes.newInstance();
+    protected MessageBytes redirectPath = MessageBytes.newInstance();
 
-    public void recycle() {
+    public void setHost(Object host) {
+		this.host = host;
+	}
+
+	public Object getContext() {
+		return context;
+	}
+
+	public Object getWrapper() {
+		return wrapper;
+	}
+
+	public MessageBytes getContextPath() {
+		return contextPath;
+	}
+
+	public MessageBytes getRequestPath() {
+		return requestPath;
+	}
+
+	public MessageBytes getWrapperPath() {
+		return wrapperPath;
+	}
+
+	public MessageBytes getPathInfo() {
+		return pathInfo;
+	}
+
+	public MessageBytes getRedirectPath() {
+		return redirectPath;
+	}
+
+	public void recycle() {
         host = null;
         context = null;
         wrapper = null;

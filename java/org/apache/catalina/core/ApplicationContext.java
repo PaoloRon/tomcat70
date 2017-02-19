@@ -467,7 +467,7 @@ public class ApplicationContext
             }
             uriCC.append(normalizedPath, 0, semicolon > 0 ? semicolon : pos);
             context.getMapper().map(uriMB, mappingData);
-            if (mappingData.wrapper == null) {
+            if (mappingData.getWrapper() == null) {
                 return (null);
             }
             /*
@@ -484,9 +484,9 @@ public class ApplicationContext
             return (null);
         }
 
-        Wrapper wrapper = (Wrapper) mappingData.wrapper;
-        String wrapperPath = mappingData.wrapperPath.toString();
-        String pathInfo = mappingData.pathInfo.toString();
+        Wrapper wrapper = (Wrapper) mappingData.getWrapper();
+        String wrapperPath = mappingData.getWrapperPath().toString();
+        String pathInfo = mappingData.getPathInfo().toString();
 
         mappingData.recycle();
         
@@ -1579,8 +1579,8 @@ public class ApplicationContext
      */
     private static final class DispatchData {
 
-        public MessageBytes uriMB;
-        public MappingData mappingData;
+        protected MessageBytes uriMB;
+        protected MappingData mappingData;
 
         public DispatchData() {
             uriMB = MessageBytes.newInstance();

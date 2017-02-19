@@ -387,7 +387,7 @@ public class AprEndpoint extends AbstractEndpoint {
         long inetAddress = Address.info(addressStr, family,
                 getPort(), 0, rootPool);
         // Create the APR server socket
-        serverSock = Socket.create(Address.getInfo(inetAddress).family,
+        serverSock = Socket.create(Address.getInfo(inetAddress).getFamily(),
                 Socket.SOCK_STREAM,
                 Socket.APR_PROTO_TCP, rootPool);
         if (OS.IS_UNIX) {
@@ -1158,18 +1158,58 @@ public class AprEndpoint extends AbstractEndpoint {
      */
     public static class SendfileData {
         // File
-        public String fileName;
-        public long fd;
-        public long fdpool;
+        private String fileName;
+        private long fd;
+        private long fdpool;
         // Range information
-        public long start;
-        public long end;
+        private long start;
+        private long end;
         // Socket and socket pool
-        public long socket;
+        private long socket;
         // Position
-        public long pos;
+        private long pos;
         // KeepAlive flag
-        public boolean keepAlive;
+        private boolean keepAlive;
+        
+		public long getEnd() {
+			return end;
+		}
+		
+		public void setEnd(long end) {
+			this.end = end;
+		}
+		
+		public String getFileName() {
+			return fileName;
+		}
+		
+		public void setFileName(String fileName) {
+			this.fileName = fileName;
+		}
+		
+		public long getStart() {
+			return start;
+		}
+		
+		public void setStart(long start) {
+			this.start = start;
+		}
+		
+		public boolean isKeepAlive() {
+			return keepAlive;
+		}
+		
+		public void setKeepAlive(boolean keepAlive) {
+			this.keepAlive = keepAlive;
+		}
+		
+		public long getSocket() {
+			return socket;
+		}
+		
+		public void setSocket(long socket) {
+			this.socket = socket;
+		}
     }
 
 
@@ -1232,7 +1272,7 @@ public class AprEndpoint extends AbstractEndpoint {
             addCount = 0;
             for (int i = (addS.size() - 1); i >= 0; i--) {
                 SendfileData data = addS.get(i);
-                Socket.destroy(data.socket);
+                Socket.destroy(data.getSocket());
             }
             // Close all sockets still in the poller
             int rv = Poll.pollset(sendfilePollset, desc);
@@ -1258,21 +1298,21 @@ public class AprEndpoint extends AbstractEndpoint {
         public boolean add(SendfileData data) {
             // Initialize fd from data given
             try {
-                data.fdpool = Socket.pool(data.socket);
+                data.fdpool = Socket.pool(data.getSocket());
                 data.fd = File.open
-                    (data.fileName, File.APR_FOPEN_READ
+                    (data.getFileName(), File.APR_FOPEN_READ
                      | File.APR_FOPEN_SENDFILE_ENABLED | File.APR_FOPEN_BINARY,
                      0, data.fdpool);
-                data.pos = data.start;
+                data.pos = data.getStart();
                 // Set the socket to nonblocking mode
-                Socket.timeoutSet(data.socket, 0);
+                Socket.timeoutSet(data.getSocket(), 0);
                 while (true) {
-                    long nw = Socket.sendfilen(data.socket, data.fd,
-                                               data.pos, data.end - data.pos, 0);
+                    long nw = Socket.sendfilen(data.getSocket(), data.fd,
+                                               data.pos, data.getEnd() - data.pos, 0);
                     if (nw < 0) {
                         if (!(-nw == Status.EAGAIN)) {
-                            Socket.destroy(data.socket);
-                            data.socket = 0;
+                            Socket.destroy(data.getSocket());
+                            data.setSocket(0);
                             return false;
                         } else {
                             // Break the loop and add the socket to poller.
@@ -1280,11 +1320,11 @@ public class AprEndpoint extends AbstractEndpoint {
                         }
                     } else {
                         data.pos = data.pos + nw;
-                        if (data.pos >= data.end) {
+                        if (data.pos >= data.getEnd()) {
                             // Entire file has been sent
                             Pool.destroy(data.fdpool);
                             // Set back socket to blocking mode
-                            Socket.timeoutSet(data.socket, socketProperties.getSoTimeout() * 1000);
+                            Socket.timeoutSet(data.getSocket(), socketProperties.getSoTimeout() * 1000);
                             return true;
                         }
                     }
@@ -1309,11 +1349,11 @@ public class AprEndpoint extends AbstractEndpoint {
          * @param data the sendfile data which should be removed
          */
         protected void remove(SendfileData data) {
-            int rv = Poll.remove(sendfilePollset, data.socket);
+            int rv = Poll.remove(sendfilePollset, data.getSocket());
             if (rv == Status.APR_SUCCESS) {
                 sendfileCount--;
             }
-            sendfileData.remove(new Long(data.socket));
+            sendfileData.remove(new Long(data.getSocket()));
         }
 
         /**
@@ -1357,14 +1397,14 @@ public class AprEndpoint extends AbstractEndpoint {
                             try {
                                 for (int i = (addS.size() - 1); i >= 0; i--) {
                                     SendfileData data = addS.get(i);
-                                    int rv = Poll.add(sendfilePollset, data.socket, Poll.APR_POLLOUT);
+                                    int rv = Poll.add(sendfilePollset, data.getSocket(), Poll.APR_POLLOUT);
                                     if (rv == Status.APR_SUCCESS) {
-                                        sendfileData.put(new Long(data.socket), data);
+                                        sendfileData.put(new Long(data.getSocket()), data);
                                         successCount++;
                                     } else {
                                         log.warn(sm.getString("endpoint.sendfile.addfail", "" + rv, Error.strerror(rv)));
                                         // Can't do anything: close the socket right away
-                                        Socket.destroy(data.socket);
+                                        Socket.destroy(data.getSocket());
                                     }
                                 }
                             } finally {
@@ -1390,36 +1430,36 @@ public class AprEndpoint extends AbstractEndpoint {
                                 remove(state);
                                 // Destroy file descriptor pool, which should close the file
                                 // Close the socket, as the response would be incomplete
-                                Socket.destroy(state.socket);
+                                Socket.destroy(state.getSocket());
                                 continue;
                             }
                             // Write some data using sendfile
-                            long nw = Socket.sendfilen(state.socket, state.fd,
+                            long nw = Socket.sendfilen(state.getSocket(), state.fd,
                                                        state.pos,
-                                                       state.end - state.pos, 0);
+                                                       state.getEnd() - state.pos, 0);
                             if (nw < 0) {
                                 // Close socket and clear pool
                                 remove(state);
                                 // Close the socket, as the response would be incomplete
                                 // This will close the file too.
-                                Socket.destroy(state.socket);
+                                Socket.destroy(state.getSocket());
                                 continue;
                             }
 
                             state.pos = state.pos + nw;
-                            if (state.pos >= state.end) {
+                            if (state.pos >= state.getEnd()) {
                                 remove(state);
-                                if (state.keepAlive) {
+                                if (state.isKeepAlive()) {
                                     // Destroy file descriptor pool, which should close the file
                                     Pool.destroy(state.fdpool);
-                                    Socket.timeoutSet(state.socket, socketProperties.getSoTimeout() * 1000);
+                                    Socket.timeoutSet(state.getSocket(), socketProperties.getSoTimeout() * 1000);
                                     // If all done put the socket back in the poller for
                                     // processing of further requests
-                                    getPoller().add(state.socket);
+                                    getPoller().add(state.getSocket());
                                 } else {
                                     // Close the socket since this is
                                     // the end of not keep-alive request.
-                                    Socket.destroy(state.socket);
+                                    Socket.destroy(state.getSocket());
                                 }
                             }
                         }
@@ -1451,7 +1491,7 @@ public class AprEndpoint extends AbstractEndpoint {
                                 remove(state);
                                 // Destroy file descriptor pool, which should close the file
                                 // Close the socket, as the response would be incomplete
-                                Socket.destroy(state.socket);
+                                Socket.destroy(state.getSocket());
                             }
                         }
                     }

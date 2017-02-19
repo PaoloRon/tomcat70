@@ -639,9 +639,9 @@ public class StringCache {
 
     public static class ByteEntry {
 
-        public byte[] name = null;
-        public String enc = null;
-        public String value = null;
+    	protected byte[] name = null;
+    	protected String enc = null;
+    	protected String value = null;
 
         @Override
         public String toString() {
@@ -667,8 +667,8 @@ public class StringCache {
 
     public static class CharEntry {
 
-        public char[] name = null;
-        public String value = null;
+    	protected char[] name = null;
+    	protected String value = null;
 
         @Override
         public String toString() {

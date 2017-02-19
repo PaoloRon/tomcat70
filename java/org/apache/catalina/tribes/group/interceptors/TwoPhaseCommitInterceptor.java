@@ -133,9 +133,9 @@ public class TwoPhaseCommitInterceptor extends ChannelInterceptorBase {
     }
     
     public static class MapEntry {
-        public ChannelMessage msg;
-        public UniqueId id;
-        public long timestamp;
+        public final ChannelMessage msg;
+        public final UniqueId id;
+        public final long timestamp;
         
         public MapEntry(ChannelMessage msg, UniqueId id, long timestamp) {
             this.msg = msg;

@@ -99,7 +99,7 @@ public class RequestFacade implements HttpServletRequest {
     private final class GetParameterPrivilegedAction
             implements PrivilegedAction<String> {
 
-        public String name;
+        protected String name;
 
         public GetParameterPrivilegedAction(String name){
             this.name = name;
@@ -123,7 +123,7 @@ public class RequestFacade implements HttpServletRequest {
     private final class GetParameterValuePrivilegedAction
             implements PrivilegedAction<String[]> {
 
-        public String name;
+        protected String name;
 
         public GetParameterValuePrivilegedAction(String name){
             this.name = name;

@@ -26,42 +26,42 @@ package org.apache.tomcat.jni;
 public class FileInfo {
 
     /** Allocates memory and closes lingering handles in the specified pool */
-    public long pool;
+    protected long pool;
     /** The bitmask describing valid fields of this apr_finfo_t structure
      *  including all available 'wanted' fields and potentially more */
-    public int valid;
+    protected int valid;
     /** The access permissions of the file.  Mimics Unix access rights. */
-    public int protection;
+    protected int protection;
     /** The type of file.  One of APR_REG, APR_DIR, APR_CHR, APR_BLK, APR_PIPE,
      * APR_LNK or APR_SOCK.  If the type is undetermined, the value is APR_NOFILE.
      * If the type cannot be determined, the value is APR_UNKFILE.
      */
-    public int filetype;
+    protected int filetype;
     /** The user id that owns the file */
-    public int user;
+    protected int user;
     /** The group id that owns the file */
-    public int group;
+    protected int group;
     /** The inode of the file. */
-    public int inode;
+    protected int inode;
     /** The id of the device the file is on. */
-    public int device;
+    protected int device;
     /** The number of hard links to the file. */
-    public int nlink;
+    protected int nlink;
     /** The size of the file */
-    public long size;
+    protected long size;
     /** The storage size consumed by the file */
-    public long csize;
+    protected long csize;
     /** The time the file was last accessed */
-    public long atime;
+    protected long atime;
     /** The time the file was last modified */
-    public long mtime;
+    protected long mtime;
     /** The time the file was created, or the inode was last changed */
-    public long ctime;
+    protected long ctime;
     /** The pathname of the file (possibly unrooted) */
-    public String fname;
+    protected String fname;
     /** The file's name (no path) in filesystem case */
-    public String name;
+    protected String name;
     /** The file's handle, if accessed (can be submitted to apr_duphandle) */
-    public long filehand;
+    protected long filehand;
 
 }

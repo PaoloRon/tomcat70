@@ -56,13 +56,13 @@ public class XMLString {
     //
 
     /** The character array. */
-    public char[] ch;
+    protected char[] ch;
 
     /** The offset into the character array. */
-    public int offset;
+    protected int offset;
 
     /** The length of characters from the offset. */
-    public int length;
+    protected int length;
 
     //
     // Constructors

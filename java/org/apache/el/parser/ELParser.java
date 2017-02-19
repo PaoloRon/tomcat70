@@ -1970,12 +1970,12 @@ public class ELParser/*@bgen(jjtree)*/implements ELParserTreeConstants, ELParser
   }
 
   /** Generated Token Manager. */
-  public ELParserTokenManager token_source;
+  protected ELParserTokenManager token_source;
   SimpleCharStream jj_input_stream;
   /** Current token. */
-  public Token token;
+  protected Token token;
   /** Next token. */
-  public Token jj_nt;
+  protected Token jj_nt;
   private int jj_ntk;
   private Token jj_scanpos, jj_lastpos;
   private int jj_la;

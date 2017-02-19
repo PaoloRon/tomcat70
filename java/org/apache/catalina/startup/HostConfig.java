@@ -1554,7 +1554,7 @@ public class HostConfig
     	 * Application context path. The assertion is that 
     	 * (host.getChild(name) != null).
     	 */
-    	public String name;
+    	protected String name;
     	
     	/**
     	 * Any modification of the specified (static) resources will cause a 
@@ -1563,7 +1563,7 @@ public class HostConfig
     	 * contain resources like the context.xml file, a compressed WAR path.
          * The value is the last modification time.
     	 */
-    	public LinkedHashMap<String, Long> redeployResources =
+    	protected LinkedHashMap<String, Long> redeployResources =
     	    new LinkedHashMap<String, Long>();
 
     	/**
@@ -1573,13 +1573,13 @@ public class HostConfig
     	 * additional descriptors.
          * The value is the last modification time.
     	 */
-    	public HashMap<String, Long> reloadResources =
+    	protected HashMap<String, Long> reloadResources =
     	    new HashMap<String, Long>();
 
     	/**
     	 * Instant where the application was last put in service.
     	 */
-    	public long timestamp = System.currentTimeMillis();
+    	protected long timestamp = System.currentTimeMillis();
     }
 
 }

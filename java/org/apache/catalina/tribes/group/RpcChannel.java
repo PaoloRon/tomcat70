@@ -184,11 +184,11 @@ public class RpcChannel implements ChannelListener{
      * @version 1.0
      */
     public static class RpcCollector {
-        public ArrayList<Response> responses = new ArrayList<Response>(); 
-        public RpcCollectorKey key;
-        public int options;
-        public int destcnt;
-        public long timeout;
+        protected ArrayList<Response> responses = new ArrayList<Response>(); 
+        protected RpcCollectorKey key;
+        protected int options;
+        protected int destcnt;
+        protected long timeout;
         
         public RpcCollector(RpcCollectorKey key, int options, int destcnt, long timeout) {
             this.key = key;

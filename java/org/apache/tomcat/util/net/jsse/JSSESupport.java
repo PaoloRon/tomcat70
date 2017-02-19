@@ -199,7 +199,7 @@ class JSSESupport implements SSLSupport, SSLSessionManager {
     public Integer getKeySize() 
         throws IOException {
         // Look up the current SSLSession
-        CipherData[] cAux=SSLCiphers.getCiphers();
+        SSLSupport.CipherData c_aux[]=ciphers;
         if (session == null)
             return null;
         
@@ -211,9 +211,9 @@ class JSSESupport implements SSLSupport, SSLSessionManager {
         if (keySize == null) {
             int size = 0;
             String cipherSuite = session.getCipherSuite();
-            for (int i = 0; i < cAux.length; i++) {
-                if (cipherSuite.indexOf(cAux[i].phrase) >= 0) {
-                    size = cAux[i].keySize;
+            for (int i = 0; i < c_aux.length; i++) {
+                if (cipherSuite.indexOf(c_aux[i].getPhrase()) >= 0) {
+                    size = c_aux[i].getKeySize();
                     break;
                 }
             }

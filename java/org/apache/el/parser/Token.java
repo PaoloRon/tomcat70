@@ -20,21 +20,21 @@ public class Token implements java.io.Serializable {
    * system is determined by JavaCCParser, and a table of these numbers is
    * stored in the file ...Constants.java.
    */
-  public int kind;
+  protected int kind;
 
   /** The line number of the first character of this Token. */
-  public int beginLine;
+  protected int beginLine;
   /** The column number of the first character of this Token. */
-  public int beginColumn;
+  protected int beginColumn;
   /** The line number of the last character of this Token. */
-  public int endLine;
+  protected int endLine;
   /** The column number of the last character of this Token. */
-  public int endColumn;
+  protected int endColumn;
 
   /**
    * The string image of the token.
    */
-  public String image;
+  protected String image;
 
   /**
    * A reference to the next regular (non-special) token from the input
@@ -44,7 +44,7 @@ public class Token implements java.io.Serializable {
    * token.  Otherwise, see below for a description of the contents of
    * this field.
    */
-  public Token next;
+  protected Token next;
 
   /**
    * This field is used to access special tokens that occur prior to this
@@ -58,7 +58,7 @@ public class Token implements java.io.Serializable {
    * immediately follow it (without an intervening regular token).  If there
    * is no such token, this field is null.
    */
-  public Token specialToken;
+  protected Token specialToken;
 
   /**
    * An optional attribute value of the Token.

@@ -56,9 +56,9 @@ public class NamingEntry {
      * The type instance variable is used to avoid using RTTI when doing
      * lookups.
      */
-    public int type;
-    public String name;
-    public Object value;
+    protected int type;
+    protected String name;
+    protected Object value;
 
 
     // --------------------------------------------------------- Object Methods

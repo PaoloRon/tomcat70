@@ -353,8 +353,8 @@ public class Http11AprProcessor extends AbstractHttp11Processor implements Actio
             
             // Do sendfile as needed: add socket to sendfile and end
             if (sendfileData != null && !error) {
-                sendfileData.socket = socket;
-                sendfileData.keepAlive = keepAlive;
+                sendfileData.setSocket(socket);
+                sendfileData.setKeepAlive(keepAlive);
                 if (!endpoint.getSendfile().add(sendfileData)) {
                     openSocket = true;
                     break;
@@ -602,7 +602,7 @@ public class Http11AprProcessor extends AbstractHttp11Processor implements Actio
                 try {
                     long sa = Address.get(Socket.APR_REMOTE, socket);
                     Sockaddr addr = Address.getInfo(sa);
-                    remotePort = addr.port;
+                    remotePort = addr.getPort();
                 } catch (Exception e) {
                     log.warn(sm.getString("http11processor.socket.info"), e);
                 }
@@ -616,7 +616,7 @@ public class Http11AprProcessor extends AbstractHttp11Processor implements Actio
                 try {
                     long sa = Address.get(Socket.APR_LOCAL, socket);
                     Sockaddr addr = Address.getInfo(sa);
-                    localPort = addr.port;
+                    localPort = addr.getPort();
                 } catch (Exception e) {
                     log.warn(sm.getString("http11processor.socket.info"), e);
                 }
@@ -1062,11 +1062,9 @@ public class Http11AprProcessor extends AbstractHttp11Processor implements Actio
                     (outputFilters[Constants.VOID_FILTER]);
                 contentDelimitation = true;
                 sendfileData = new AprEndpoint.SendfileData();
-                sendfileData.fileName = fileName;
-                sendfileData.start = 
-                    ((Long) request.getAttribute("org.apache.tomcat.sendfile.start")).longValue();
-                sendfileData.end = 
-                    ((Long) request.getAttribute("org.apache.tomcat.sendfile.end")).longValue();
+                sendfileData.setFileName(fileName);
+                sendfileData.setStart(((Long) request.getAttribute("org.apache.tomcat.sendfile.start")).longValue());
+                sendfileData.setEnd(((Long) request.getAttribute("org.apache.tomcat.sendfile.end")).longValue());
             }
         }
         
