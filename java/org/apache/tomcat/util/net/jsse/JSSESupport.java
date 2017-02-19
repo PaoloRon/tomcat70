@@ -199,7 +199,7 @@ class JSSESupport implements SSLSupport, SSLSessionManager {
     public Integer getKeySize() 
         throws IOException {
         // Look up the current SSLSession
-        SSLSupport.CipherData c_aux[]=ciphers;
+        SSLSupport.CipherData c_aux[]=SSLCiphers.getCiphers();
         if (session == null)
             return null;
         
