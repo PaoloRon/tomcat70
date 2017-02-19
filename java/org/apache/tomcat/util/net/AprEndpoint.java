@@ -139,7 +139,7 @@ public class AprEndpoint extends AbstractEndpoint {
     /**
      * Use sendfile for sending static files.
      */
-    protected boolean useSendfile = Library.APR_HAS_SENDFILE;
+    protected boolean useSendfile = Library.aprHasSendfile();
     public void setUseSendfile(boolean useSendfile) { this.useSendfile = useSendfile; }
     public boolean getUseSendfile() { return useSendfile; }
 
@@ -375,7 +375,7 @@ public class AprEndpoint extends AbstractEndpoint {
             addressStr = getAddress().getHostAddress();
         }
         int family = Socket.APR_INET;
-        if (Library.APR_HAVE_IPV6) {
+        if (Library.aprHaveIPV6()) {
             if (addressStr == null) {
                 if (!OS.IS_BSD && !OS.IS_WIN32 && !OS.IS_WIN64)
                     family = Socket.APR_UNSPEC;
@@ -411,7 +411,7 @@ public class AprEndpoint extends AbstractEndpoint {
         }
 
         // Sendfile usage on systems which don't support it cause major problems
-        if (useSendfile && !Library.APR_HAS_SENDFILE) {
+        if (useSendfile && !Library.aprHasSendfile()) {
             useSendfile = false;
         }
 

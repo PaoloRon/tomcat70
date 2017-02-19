@@ -412,7 +412,7 @@ public final class EmbeddedServletOptions implements Options {
         
         // quick hack
         String validating=config.getInitParameter( "validating");
-        if( "false".equals( validating )) ParserUtils.validating=false;
+        if( "false".equals( validating )) ParserUtils.setValidating(false);
         
         String keepgen = config.getInitParameter("keepgenerated");
         if (keepgen != null) {

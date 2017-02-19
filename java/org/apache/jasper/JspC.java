@@ -828,7 +828,7 @@ public class JspC implements Options {
     }
 
     public void setValidateXml( boolean b ) {
-        org.apache.jasper.xmlparser.ParserUtils.validating=b;
+        org.apache.jasper.xmlparser.ParserUtils.setValidating(b);
     }
 
     public void setListErrors( boolean b ) {

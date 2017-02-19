@@ -64,12 +64,22 @@ public class ParserUtils {
     static EntityResolver entityResolver = new MyEntityResolver();
 
     // Turn off for JSP 2.0 until switch over to using xschema.
-    public static boolean validating = false;
+    private static boolean validating = false;
 
 
     // --------------------------------------------------------- Public Methods
 
-    /**
+    public static boolean isValidating() {
+		return validating;
+	}
+
+
+	public static void setValidating(boolean validating) {
+		ParserUtils.validating = validating;
+	}
+
+
+	/**
      * Parse the specified XML document, and return a <code>TreeNode</code>
      * that corresponds to the root node of the document tree.
      *

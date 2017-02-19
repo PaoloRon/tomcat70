@@ -194,10 +194,10 @@ public class AprLifecycleListener
 
         // Log APR flags
         log.info(sm.getString("aprListener.flags",
-                Boolean.valueOf(Library.APR_HAVE_IPV6),
-                Boolean.valueOf(Library.APR_HAS_SENDFILE), 
-                Boolean.valueOf(Library.APR_HAS_SO_ACCEPTFILTER),
-                Boolean.valueOf(Library.APR_HAS_RANDOM)));
+                Boolean.valueOf(Library.aprHaveIPV6()),
+                Boolean.valueOf(Library.aprHasSendfile()), 
+                Boolean.valueOf(Library.aprHasSOAcceptfilter()),
+                Boolean.valueOf(Library.aprHasRandom())));
         aprAvailable = true;
     }
 
