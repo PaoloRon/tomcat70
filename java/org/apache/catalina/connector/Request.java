@@ -2698,6 +2698,7 @@ public class Request
                 we must unescape the '\\' escape character
                 */
                 Cookie cookie = new Cookie(scookie.getName().toString(),null);
+                cookie.setSecure(true);
                 int version = scookie.getVersion();
                 cookie.setVersion(version);
                 cookie.setValue(unescape(scookie.getValue().toString()));
