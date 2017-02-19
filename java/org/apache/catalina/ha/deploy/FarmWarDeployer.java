@@ -245,7 +245,8 @@ public class FarmWarDeployer extends ClusterListener implements ClusterDeployer,
                             addServiced(path);
                             try {
                                 remove(path);
-                                factory.getFile().renameTo(deployable);
+                                if(factory.getFile().renameTo(deployable) && log.isDebugEnabled())
+                                	log.debug("renamed to " + deployable + ".");                                
                                 check(path);
                             } finally {
                                 removeServiced(path);
@@ -563,11 +564,13 @@ public class FarmWarDeployer extends ClusterListener implements ClusterDeployer,
             File dir = new File(getAppBase(), getDocBase(path));
             File xml = new File(configBase, getConfigFile(path) + ".xml");
             if (war.exists()) {
-                war.delete();
+                if(war.delete() && log.isDebugEnabled())
+                	log.debug("deleted " + war + ".");
             } else if (dir.exists()) {
                 undeployDir(dir);
             } else {
-                xml.delete();
+            	 if(xml.delete() && log.isDebugEnabled())
+                 	log.debug("deleted " + xml + ".");
             }
             // Perform new deployment and remove internal HostConfig state
             check(path);
@@ -593,10 +596,12 @@ public class FarmWarDeployer extends ClusterListener implements ClusterDeployer,
             if (file.isDirectory()) {
                 undeployDir(file);
             } else {
-                file.delete();
+                if(file.delete() && log.isDebugEnabled())
+                	log.debug("deleted " + file + ".");
             }
         }
-        dir.delete();
+        if(dir.delete() && log.isDebugEnabled())
+        	log.debug("deleted " + dir + ".");
 
     }
 
@@ -744,7 +749,8 @@ public class FarmWarDeployer extends ClusterListener implements ClusterDeployer,
     protected boolean copy(File from, File to) {
         try {
             if (!to.exists())
-                to.createNewFile();
+                if(to.createNewFile() && log.isDebugEnabled())
+                	log.debug("created new file.");
             java.io.FileInputStream is = new java.io.FileInputStream(from);
             java.io.FileOutputStream os = new java.io.FileOutputStream(to,
                     false);

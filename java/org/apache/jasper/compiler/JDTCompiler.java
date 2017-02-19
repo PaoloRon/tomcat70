@@ -434,7 +434,8 @@ public class JDTCompiler extends org.apache.jasper.compiler.Compiler {
 
         if (!ctxt.keepGenerated()) {
             File javaFile = new File(ctxt.getServletJavaFileName());
-            javaFile.delete();
+            if(javaFile.delete())
+            	log.debug("file successfully deleted");
         }
     
         if (!problemList.isEmpty()) {

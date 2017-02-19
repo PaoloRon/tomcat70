@@ -332,8 +332,10 @@ public final class FileStore extends StoreBase {
             manager.getContainer().getLogger().debug(sm.getString(getStoreName()+".removing",
                              id, file.getAbsolutePath()));
         }
-        file.delete();
-
+        
+        if(file.delete() && manager.getContainer().getLogger().isDebugEnabled())
+            manager.getContainer().getLogger().debug("file successfully deleted");
+        
     }
 
 
@@ -412,8 +414,9 @@ public final class FileStore extends StoreBase {
                     ("Parent Container is not a Context");
             }
         }
-        if (!file.exists() || !file.isDirectory()) {
-            file.delete();
+        if ((!file.exists() || !file.isDirectory()) && file.delete() && 
+        		manager.getContainer().getLogger().isDebugEnabled()) {
+        	manager.getContainer().getLogger().debug("file successfully deleted");
             file.mkdirs();
         }
         this.directoryFile = file;

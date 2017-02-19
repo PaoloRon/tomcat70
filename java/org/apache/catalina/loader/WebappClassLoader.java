@@ -3276,12 +3276,13 @@ public class WebappClassLoader
             File file = new File(dir, files[i]);
             if (file.isDirectory()) {
                 deleteDir(file);
-            } else {
-                file.delete();
+            } else if(file.delete()){
+                log.debug("file successfully deleted");
             }
         }
-        dir.delete();
-
+        if(dir.delete())
+        	log.debug("directory successfully deleted");
+        
     }
 
 

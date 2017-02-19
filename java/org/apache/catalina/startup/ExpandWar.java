@@ -134,8 +134,9 @@ public class ExpandWar {
                 // Bugzilla 33636
                 expand(input, expandedFile);
                 long lastModified = jarEntry.getTime();
-                if ((lastModified != -1) && (lastModified != 0)) {
-                    expandedFile.setLastModified(lastModified);
+                if ((lastModified != -1) && (lastModified != 0) && 
+                		expandedFile.setLastModified(lastModified)) {
+                    log.debug("new last modified set");
                 }
 
                 input.close();
@@ -361,8 +362,8 @@ public class ExpandWar {
             File file = new File(dir, files[i]);
             if (file.isDirectory()) {
                 deleteDir(file, logFailure);
-            } else {
-                file.delete();
+            } else if(file.delete()) {
+                log.debug("file successfully deleted");
             }
         }
 

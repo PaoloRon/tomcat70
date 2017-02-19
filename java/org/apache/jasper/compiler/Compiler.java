@@ -66,6 +66,8 @@ public abstract class Compiler {
 
     protected Node.Nodes pageNodes;
 
+    private static final String FILE_DEL_SUCC = "file successfully deleted";
+
     // ------------------------------------------------------------ Constructor
 
     public void init(JspCompilationContext ctxt, JspServletWrapper jsw) {
@@ -266,7 +268,8 @@ public abstract class Compiler {
                 }
             }
             // Remove the generated .java file
-            new File(javaFileName).delete();
+            if(new File(javaFileName).delete())
+            	log.debug(FILE_DEL_SUCC);
             throw e;
         } finally {
             if (writer != null) {
@@ -546,7 +549,8 @@ public abstract class Compiler {
                 File classFile = new File(classFileName);
                 if (log.isDebugEnabled())
                     log.debug("Deleting " + classFile);
-                classFile.delete();
+                if(classFile.delete())
+                	log.debug(FILE_DEL_SUCC);
             }
         } catch (Exception e) {
             // Remove as much as possible, ignore possible exceptions
@@ -557,7 +561,8 @@ public abstract class Compiler {
                 File javaFile = new File(javaFileName);
                 if (log.isDebugEnabled())
                     log.debug("Deleting " + javaFile);
-                javaFile.delete();
+                if(javaFile.delete())
+                	log.debug(FILE_DEL_SUCC);
             }
         } catch (Exception e) {
             // Remove as much as possible, ignore possible exceptions
@@ -571,7 +576,8 @@ public abstract class Compiler {
                 File classFile = new File(classFileName);
                 if (log.isDebugEnabled())
                     log.debug("Deleting " + classFile);
-                classFile.delete();
+                if(classFile.delete())
+                	log.debug(FILE_DEL_SUCC);
             }
         } catch (Exception e) {
             // Remove as much as possible, ignore possible exceptions

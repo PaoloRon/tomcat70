@@ -242,6 +242,11 @@ public class ManagerServlet
      * The Wrapper container associated with this servlet.
      */
     protected Wrapper wrapper = null;
+    
+    /**
+     * Log message costant for war parameter.
+     */
+    private static final String WARSUCC = "war successfully deleted";
 
 
     // ----------------------------------------------- ContainerServlet Methods
@@ -1366,12 +1371,12 @@ public class ManagerServlet
                     File war = new File(getAppBase(), getDocBase(path) + ".war");
                     File dir = new File(getAppBase(), getDocBase(path));
                     File xml = new File(configBase, getConfigFile(path) + ".xml");
-                    if (war.exists()) {
-                        war.delete();
+                    if (war.exists() && war.delete()) {
+                        log(WARSUCC);
                     } else if (dir.exists()) {
                         undeployDir(dir);
-                    } else {
-                        xml.delete();
+                    } else if(xml.delete()){
+                        log("xml successfully deleted");
                     }
                     // Perform new deployment
                     check(path.replace('#', '/'));
@@ -1520,11 +1525,12 @@ public class ManagerServlet
             File file = new File(dir, files[i]);
             if (file.isDirectory()) {
                 undeployDir(file);
-            } else {
-                file.delete();
+            } else if(file.delete()){
+                log("file successfully deleted");
             }
         }
-        dir.delete();
+        if(dir.delete())
+            log("directory successfully deleted");
 
     }
 
@@ -1541,7 +1547,8 @@ public class ManagerServlet
     protected void uploadWar(HttpServletRequest request, File war)
         throws IOException {
 
-        war.delete();
+        if(war.delete())
+        	log(WARSUCC);
         ServletInputStream istream = null;
         BufferedOutputStream ostream = null;
         try {
@@ -1562,7 +1569,8 @@ public class ManagerServlet
             istream.close();
             istream = null;
         } catch (IOException e) {
-            war.delete();
+            if(war.delete())
+            	log(WARSUCC);
             throw e;
         } finally {
             if (ostream != null) {
