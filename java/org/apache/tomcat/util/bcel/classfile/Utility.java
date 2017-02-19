@@ -18,6 +18,8 @@
 package org.apache.tomcat.util.bcel.classfile;
 
 import java.io.IOException;
+
+import org.apache.tomcat.util.bcel.ArrayConstants;
 import org.apache.tomcat.util.bcel.Constants;
 import org.apache.tomcat.util.bcel.util.ByteSequence;
 
@@ -96,7 +98,7 @@ public abstract class Utility {
                 if (for_class && ((p == Constants.ACC_SUPER) || (p == Constants.ACC_INTERFACE))) {
                     continue;
                 }
-                buf.append(Constants.ACCESS_NAMES[i]).append(" ");
+                buf.append(ArrayConstants.getAccessNames()[i]).append(" ");
             }
         }
         return buf.toString().trim();
@@ -168,7 +170,7 @@ public abstract class Utility {
         int index, vindex, constant;
         int[] match, jump_table;
         int no_pad_bytes = 0, offset;
-        StringBuffer buf = new StringBuffer(Constants.OPCODE_NAMES[opcode]);
+        StringBuffer buf = new StringBuffer(ArrayConstants.getOpcodeNames()[opcode]);
         /* Special case: Skip (0-3) padding bytes, i.e., the
          * following bytes are 4-byte-aligned
          */
@@ -179,7 +181,7 @@ public abstract class Utility {
                 byte b;
                 if ((b = bytes.readByte()) != 0) {
                     System.err.println("Warning: Padding byte != 0 in "
-                            + Constants.OPCODE_NAMES[opcode] + ":" + b);
+                            + ArrayConstants.getOpcodeNames()[opcode] + ":" + b);
                 }
             }
             // Both cases have a field default_offset in common
@@ -288,7 +290,7 @@ public abstract class Utility {
             /* Array of basic type.
              */
             case Constants.NEWARRAY:
-                buf.append("\t\t<").append(Constants.TYPE_NAMES[bytes.readByte()]).append(">");
+                buf.append("\t\t<").append(ArrayConstants.getTypeNames()[bytes.readByte()]).append(">");
                 break;
             /* Access object/class fields.
              */
@@ -381,10 +383,10 @@ public abstract class Utility {
                 buf.append("\t\t%").append(vindex).append("\t").append(constant);
                 break;
             default:
-                if (Constants.NO_OF_OPERANDS[opcode] > 0) {
-                    for (int i = 0; i < Constants.TYPE_OF_OPERANDS[opcode].length; i++) {
+                if (ArrayConstants.getNoOfOperands()[opcode] > 0) {
+                    for (int i = 0; i < ArrayConstants.getTypeOfOperands()[opcode].length; i++) {
                         buf.append("\t\t");
-                        switch (Constants.TYPE_OF_OPERANDS[opcode][i]) {
+                        switch (ArrayConstants.getTypeOfOperands()[opcode][i]) {
                             case Constants.T_BYTE:
                                 buf.append(bytes.readByte());
                                 break;

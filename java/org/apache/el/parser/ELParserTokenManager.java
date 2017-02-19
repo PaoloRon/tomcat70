@@ -1074,7 +1074,7 @@ private static final boolean jjCanMove_1(int hiByte, int i1, int i2, long l1, lo
 }
 
 /** Token literal values. */
-public static final String[] jjstrLiteralImages = {
+protected static final String[] jjstrLiteralImages = {
 "", null, "\44\173", "\43\173", null, null, null, null, null, null, null, null, 
 "\164\162\165\145", "\146\141\154\163\145", "\156\165\154\154", "\175", "\56", "\50", "\51", 
 "\133", "\135", "\72", "\54", "\76", "\147\164", "\74", "\154\164", "\76\75", 
@@ -1084,13 +1084,13 @@ public static final String[] jjstrLiteralImages = {
 null, null, null, null, null, };
 
 /** Lexer state names. */
-public static final String[] lexStateNames = {
+protected static final String[] lexStateNames = {
    "DEFAULT",
    "IN_EXPRESSION",
 };
 
 /** Lex State array. */
-public static final int[] jjnewLexState = {
+protected static final int[] jjnewLexState = {
    -1, -1, 1, 1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, 
    -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 
    -1, -1, -1, -1, -1, -1, -1, 

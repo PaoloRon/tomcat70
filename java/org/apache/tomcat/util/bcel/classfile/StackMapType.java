@@ -21,6 +21,7 @@ import java.io.DataInput;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+import org.apache.tomcat.util.bcel.ArrayConstants;
 import org.apache.tomcat.util.bcel.Constants;
 
 /**
@@ -128,7 +129,7 @@ public final class StackMapType implements Cloneable {
      * @return String representation
      */
     public final String toString() {
-        return "(type=" + Constants.ITEM_NAMES[type] + printIndex() + ")";
+        return "(type=" + ArrayConstants.getItemNames()[type] + printIndex() + ")";
     }
 
 

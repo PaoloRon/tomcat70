@@ -120,7 +120,7 @@ public final class Constants {
     public static final int  MAX_SEND_SIZE = MAX_PACKET_SIZE - SEND_HEAD_LEN;
 
     // Translates integer codes to names of HTTP methods
-    public static final String []methodTransArray = {
+    protected static final String []methodTransArray = {
             "OPTIONS",
             "GET",
             "HEAD",
@@ -170,7 +170,7 @@ public final class Constants {
     public static final byte SC_A_SSL_KEY_SIZE  = 11; // XXX ???
 
     // Translates integer codes to request header names
-    public static final String []headerTransArray = {
+    protected static final String []headerTransArray = {
             "accept",
             "accept-charset",
             "accept-encoding",
@@ -188,7 +188,7 @@ public final class Constants {
     };
 
     // Translates integer codes to response header names
-    public static final String []responseTransArray = {
+    protected static final String []responseTransArray = {
             "Content-Type",
             "Content-Language",
             "Content-Length",
@@ -237,7 +237,7 @@ public final class Constants {
     /**
      * Server string.
      */
-    public static final byte[] SERVER_BYTES =
+    protected static final byte[] SERVER_BYTES =
         ByteChunk.convertToBytes("Server: Apache-Coyote/1.1" + CRLF);
 
 
@@ -308,24 +308,24 @@ public final class Constants {
 
 
     /* Various constant "strings" */
-    public static final byte[] CRLF_BYTES = ByteChunk.convertToBytes(CRLF);
-    public static final byte[] COLON_BYTES = ByteChunk.convertToBytes(": ");
+    protected static final byte[] CRLF_BYTES = ByteChunk.convertToBytes(CRLF);
+    protected static final byte[] COLON_BYTES = ByteChunk.convertToBytes(": ");
     public static final String CONNECTION = "Connection";
     public static final String CLOSE = "close";
-    public static final byte[] CLOSE_BYTES =
+    protected static final byte[] CLOSE_BYTES =
         ByteChunk.convertToBytes(CLOSE);
     public static final String KEEPALIVE = "keep-alive";
-    public static final byte[] KEEPALIVE_BYTES =
+    protected static final byte[] KEEPALIVE_BYTES =
         ByteChunk.convertToBytes(KEEPALIVE);
     public static final String CHUNKED = "chunked";
-    public static final byte[] ACK_BYTES =
+    protected static final byte[] ACK_BYTES =
         ByteChunk.convertToBytes("HTTP/1.1 100 Continue" + CRLF + CRLF);
     public static final String TRANSFERENCODING = "Transfer-Encoding";
-    public static final byte[] _200_BYTES =
+    protected static final byte[] _200_BYTES =
         ByteChunk.convertToBytes("200");
-    public static final byte[] _400_BYTES =
+    protected static final byte[] _400_BYTES =
         ByteChunk.convertToBytes("400");
-    public static final byte[] _404_BYTES =
+    protected static final byte[] _404_BYTES =
         ByteChunk.convertToBytes("404");
 
 
@@ -369,7 +369,7 @@ public final class Constants {
      * HTTP/1.1.
      */
     public static final String HTTP_11 = "HTTP/1.1";
-    public static final byte[] HTTP_11_BYTES =
+    protected static final byte[] HTTP_11_BYTES =
         ByteChunk.convertToBytes(HTTP_11);
 
 

@@ -30,7 +30,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.catalina.tribes.Channel;
-import org.apache.catalina.tribes.Member;
+import org.apache.catalina.tribes.MemberShutdownPayload;
 import org.apache.catalina.tribes.MembershipListener;
 import org.apache.catalina.tribes.MessageListener;
 import org.apache.catalina.tribes.io.ChannelData;
@@ -319,7 +319,7 @@ public class McastServiceImpl
         //we're shutting down, send a shutdown message and close the socket
         if ( startLevel == 0 ) {
             //send a stop message
-            member.setCommand(Member.SHUTDOWN_PAYLOAD);
+            member.setCommand(MemberShutdownPayload.getShutdownPayload());
             member.getData(true, true);
             send(false);
             //leave mcast group
@@ -363,7 +363,7 @@ public class McastServiceImpl
         final MemberImpl m = MemberImpl.getMember(data);
         if (log.isTraceEnabled()) log.trace("Mcast receive ping from member " + m);
         Runnable t = null;
-        if (Arrays.equals(m.getCommand(), Member.SHUTDOWN_PAYLOAD)) {
+        if (Arrays.equals(m.getCommand(), MemberShutdownPayload.getShutdownPayload())) {
             if (log.isDebugEnabled()) log.debug("Member has shutdown:" + m);
             membership.removeMember(m);
             t = new Runnable() {

@@ -28,6 +28,7 @@ import org.apache.catalina.tribes.ChannelException;
 import org.apache.catalina.tribes.ChannelException.FaultyMember;
 import org.apache.catalina.tribes.ChannelMessage;
 import org.apache.catalina.tribes.Member;
+import org.apache.catalina.tribes.MemberShutdownPayload;
 import org.apache.catalina.tribes.RemoteProcessException;
 import org.apache.catalina.tribes.group.ChannelInterceptorBase;
 import org.apache.catalina.tribes.group.InterceptorPayload;
@@ -140,7 +141,7 @@ public class TcpFailureDetector extends ChannelInterceptorBase {
     public void memberDisappeared(Member member) {
         if ( membership == null ) setupMembership();
         boolean notify = false;
-        boolean shutdown = Arrays.equals(member.getCommand(),Member.SHUTDOWN_PAYLOAD);
+        boolean shutdown = Arrays.equals(member.getCommand(),MemberShutdownPayload.getShutdownPayload());
         if ( !shutdown ) 
             if(log.isInfoEnabled())
                 log.info("Received memberDisappeared["+member+"] message. Will verify.");
@@ -294,7 +295,7 @@ public class TcpFailureDetector extends ChannelInterceptorBase {
                                          long readTimeout, long conTimeout,
                                          int optionFlag) {
         //could be a shutdown notification
-        if ( Arrays.equals(mbr.getCommand(),Member.SHUTDOWN_PAYLOAD) ) return false;
+        if ( Arrays.equals(mbr.getCommand(),MemberShutdownPayload.getShutdownPayload()) ) return false;
         
         Socket socket = new Socket();        
         try {

@@ -48,8 +48,8 @@ public class MemberImpl implements Member, java.io.Externalizable {
     public static final transient String TCP_LISTEN_HOST = "tcpListenHost";
     public static final transient String MEMBER_NAME = "memberName";
 
-    public static final transient byte[] TRIBES_MBR_BEGIN = new byte[] {84, 82, 73, 66, 69, 83, 45, 66, 1, 0};
-    public static final transient byte[] TRIBES_MBR_END   = new byte[] {84, 82, 73, 66, 69, 83, 45, 69, 1, 0};
+    protected static final transient byte[] TRIBES_MBR_BEGIN = new byte[] {84, 82, 73, 66, 69, 83, 45, 66, 1, 0};
+    protected static final transient byte[] TRIBES_MBR_END   = new byte[] {84, 82, 73, 66, 69, 83, 45, 69, 1, 0};
 
     /**
      * The listen host for this member

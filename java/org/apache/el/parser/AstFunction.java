@@ -132,6 +132,6 @@ public final class AstFunction extends SimpleNode {
     @Override
     public String toString()
     {
-        return ELParserTreeConstants.jjtNodeName[id] + "[" + this.getOutputName() + "]";
+        return ELJjtNodeName.getJjtNodeName()[id] + "[" + this.getOutputName() + "]";
     }
 }

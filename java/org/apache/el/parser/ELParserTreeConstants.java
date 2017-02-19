@@ -38,42 +38,5 @@ public interface ELParserTreeConstants
   public int JJTSTRING = 32;
   public int JJTNULL = 33;
 
-
-  public String[] jjtNodeName = {
-    "CompositeExpression",
-    "LiteralExpression",
-    "DeferredExpression",
-    "DynamicExpression",
-    "void",
-    "Choice",
-    "Or",
-    "And",
-    "Equal",
-    "NotEqual",
-    "LessThan",
-    "GreaterThan",
-    "LessThanEqual",
-    "GreaterThanEqual",
-    "Plus",
-    "Minus",
-    "Mult",
-    "Div",
-    "Mod",
-    "Negative",
-    "Not",
-    "Empty",
-    "Value",
-    "DotSuffix",
-    "BracketSuffix",
-    "MethodParameters",
-    "Identifier",
-    "Function",
-    "True",
-    "False",
-    "FloatingPoint",
-    "Integer",
-    "String",
-    "Null",
-  };
 }
 /* JavaCC - OriginalChecksum=437008e736f149e8fa6712fb36d831a1 (do not edit this line) */
