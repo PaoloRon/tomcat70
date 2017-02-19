@@ -76,7 +76,8 @@ public class DigestAuthenticator
             if (md5Helper == null)
                 md5Helper = MessageDigest.getInstance("MD5");
         } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
+            if(log.isErrorEnabled())
+            	log.error("Can't get MD5", e);
             throw new IllegalStateException();
         }
     }

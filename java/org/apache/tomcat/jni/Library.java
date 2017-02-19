@@ -24,7 +24,9 @@ package org.apache.tomcat.jni;
  */
 
 public final class Library {
-
+	private static final org.apache.juli.logging.Log log=
+	        org.apache.juli.logging.LogFactory.getLog(Library.class); 
+	
     /* Default library names */
     private static String [] NAMES = {"tcnative-1", "libtcnative-1"};
     /*
@@ -49,9 +51,8 @@ public final class Library {
                 String [] paths = path.split(sep);
                 for (int j=0; j<paths.length; j++) {
                     java.io.File fd = new java.io.File(paths[j] , name);
-                    if (fd.exists()) {
-                        e.printStackTrace();
-                    }
+                    if (fd.exists() && log.isErrorEnabled())
+                    	   log.error(e.getStackTrace(), e);                    
                 }
                 if ( i > 0)
                     err += ", ";

@@ -52,6 +52,9 @@ import org.apache.tomcat.util.bcel.classfile.ConstantUtf8;
  */
 public abstract class Attribute implements Cloneable, Serializable
 {
+	private static final org.apache.juli.logging.Log log=
+		        org.apache.juli.logging.LogFactory.getLog(Attribute.class);
+	
 	protected int name_index; // Points to attribute name in constant pool
 
 	protected int length; // Content length of attribute field
@@ -231,9 +234,11 @@ public abstract class Attribute implements Cloneable, Serializable
 		{
 			o = super.clone();
 		}
-		catch (CloneNotSupportedException e)
+		catch (CloneNotSupportedException e) //Never occurs
 		{
-			e.printStackTrace(); // Never occurs
+			if(log.isErrorEnabled()) 
+				log.error("This should not happend", e);			
+				
 		}
 		return o;
 	}

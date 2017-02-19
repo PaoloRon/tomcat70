@@ -37,6 +37,8 @@ import javax.naming.directory.ModificationItem;
 import javax.naming.directory.SearchControls;
 import javax.naming.directory.SearchResult;
 
+import org.apache.juli.logging.Log;
+import org.apache.juli.logging.LogFactory;
 import org.apache.naming.StringManager;
 
 /**
@@ -48,7 +50,8 @@ import org.apache.naming.StringManager;
 
 public class ProxyDirContext implements DirContext {
 
-
+	private static final Log log = LogFactory.getLog(ProxyDirContext.class);
+	
     // -------------------------------------------------------------- Constants
 
 
@@ -76,7 +79,8 @@ public class ProxyDirContext implements DirContext {
                         Class.forName(cacheClassName).newInstance();
                 } catch (Exception e) {
                     //FIXME
-                    e.printStackTrace();
+                	if(log.isErrorEnabled())
+             	    	log.error("Unexpected error", e);
                 }
                 cache.setCacheMaxSize(baseDirContext.getCacheMaxSize());
                 cacheTTL = baseDirContext.getCacheTTL();

@@ -864,7 +864,8 @@ public class NioEndpoint extends AbstractEndpoint {
                         try {
                             try {
                                 System.err.println(oomParachuteMsg);
-                                oomt.printStackTrace();
+                                if(log.isErrorEnabled())
+                             	   log.error("Unexpected error", oomt);
                             }catch (Throwable letsHopeWeDontGetHere){}
                         }catch (Throwable letsHopeWeDontGetHere){}
                     }
@@ -1166,7 +1167,8 @@ public class NioEndpoint extends AbstractEndpoint {
                     }catch ( Throwable oomt ) {
                         try {
                             System.err.println(oomParachuteMsg);
-                            oomt.printStackTrace();
+                            if(log.isErrorEnabled())
+                         	   log.error("Unexpected error", oomt);
                         }catch (Throwable letsHopeWeDontGetHere){}
                     }
                 }
@@ -1592,7 +1594,8 @@ public class NioEndpoint extends AbstractEndpoint {
                 }catch ( Throwable oomt ) {
                     try {
                         System.err.println(oomParachuteMsg);
-                        oomt.printStackTrace();
+                        if(log.isErrorEnabled())
+                      	   log.error("Unexpected error", oomt);
                     }catch (Throwable letsHopeWeDontGetHere){}
                 }
             }catch ( Throwable t ) {

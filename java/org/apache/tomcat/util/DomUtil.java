@@ -229,7 +229,8 @@ public class DomUtil {
             try {
                 IntrospectionUtils.setProperty(o, name, value);
             } catch( Exception ex ) {
-                ex.printStackTrace();
+            	 if(log.isErrorEnabled())
+               	   log.error("Unexpected error", ex);
             }
         }
     }

@@ -1324,8 +1324,8 @@ public class JspC implements Options {
                     && ((JasperException) rootCause).getRootCause() != null) {
                 rootCause = ((JasperException) rootCause).getRootCause();
             }
-            if (rootCause != je) {
-                rootCause.printStackTrace();
+            if (rootCause != je && log.isErrorEnabled()) {
+                log.error("Unexpected error", rootCause);
             }
             throw je;
         } finally {

@@ -19,9 +19,13 @@ package org.apache.jasper.compiler;
 
 import org.xml.sax.Attributes;
 import org.apache.jasper.JasperException;
+import org.apache.juli.logging.Log;
+import org.apache.juli.logging.LogFactory;
 
 class Dumper {
-
+	// Logger
+    private static final Log log = LogFactory.getLog(Dumper.class);
+    		
     static class DumpVisitor extends Node.Visitor {
 	private int indent = 0;
 
@@ -205,7 +209,8 @@ class Dumper {
 	try {
 	    n.accept(new DumpVisitor());	
 	} catch (JasperException e) {
-	    e.printStackTrace();
+	    if(log.isErrorEnabled())
+	    	log.error("Jasper exception", e);
 	}
     }
 
@@ -213,7 +218,8 @@ class Dumper {
 	try {
 	    page.visit(new DumpVisitor());
 	} catch (JasperException e) {
-	    e.printStackTrace();
+		 if(log.isErrorEnabled())
+		    	log.error("Jasper exception", e);
 	}
     }
 }

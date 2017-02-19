@@ -916,7 +916,8 @@ public abstract class AbstractReplicatedMap extends ConcurrentHashMap implements
             }
             System.out.println("EndMap]\n\n");
         }catch ( Exception ignore) {
-            ignore.printStackTrace();
+            if(log.isErrorEnabled())
+            	log.error("", ignore);
         }
     }
     

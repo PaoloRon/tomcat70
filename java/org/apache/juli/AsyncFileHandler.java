@@ -25,7 +25,8 @@ import java.util.logging.LogRecord;
  *
  */
 public class AsyncFileHandler extends FileHandler {
-
+	public static final org.apache.juli.logging.Log log = org.apache.juli.logging.LogFactory.getLog(AsyncFileHandler.class);
+	
     public static final int OVERFLOW_DROP_LAST = 1;
     public static final int OVERFLOW_DROP_FIRST = 2;
     public static final int OVERFLOW_DROP_FLUSH = 3;
@@ -129,7 +130,8 @@ public class AsyncFileHandler extends FileHandler {
                 }catch (InterruptedException x) {
                     Thread.interrupted();
                 }catch (Exception x) {
-                    x.printStackTrace();
+                   if(log.isErrorEnabled())
+                	   log.error("Error during run", x);
                 }
             }//while
         }

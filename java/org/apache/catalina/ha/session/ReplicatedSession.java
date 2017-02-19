@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.security.Principal;
+import java.util.Arrays;
 
 /**
  * Title:        Tomcat Session Replication for Tomcat 4.0 <BR>
@@ -257,7 +258,7 @@ implements org.apache.catalina.ha.ClusterSession{
             SimpleTcpReplicationManager.log.error("ReplicatedSession: " + message,x);
         } else {
             System.out.println("ReplicatedSession: " + message);
-            x.printStackTrace();
+            log(Arrays.toString(x.getStackTrace()), x);
         }
 
     }

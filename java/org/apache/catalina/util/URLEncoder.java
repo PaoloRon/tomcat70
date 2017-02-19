@@ -21,6 +21,9 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.BitSet;
 
+import org.apache.juli.logging.Log;
+import org.apache.juli.logging.LogFactory;
+
 /**
  *
  * This class is very similar to the java.net.URLEncoder class.
@@ -34,6 +37,8 @@ import java.util.BitSet;
  * @author Remy Maucherat
  */
 public class URLEncoder {
+	private static final Log log = LogFactory.getLog(URLEncoder.class);
+			
     protected static final char[] hexadecimal =
     {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
      'A', 'B', 'C', 'D', 'E', 'F'};
@@ -65,7 +70,8 @@ public class URLEncoder {
         try {
             writer = new OutputStreamWriter(buf, "UTF8");
         } catch (Exception e) {
-            e.printStackTrace();
+           if(log.isErrorEnabled())
+        	   log.error("Creating OutputStreamWriter not UTF8", e);
             writer = new OutputStreamWriter(buf);
         }
 

@@ -21,6 +21,9 @@ import java.text.MessageFormat;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
+import org.apache.juli.logging.Log;
+import org.apache.juli.logging.LogFactory;
+
 /**
  * Class responsible for converting error codes to corresponding localized
  * error messages.
@@ -28,7 +31,9 @@ import java.util.ResourceBundle;
  * @author Jan Luehe
  */
 public class Localizer {
-
+	// Logger
+    private static final Log log = LogFactory.getLog(Localizer.class);
+    
     private static ResourceBundle bundle = null;
     
     static {
@@ -36,7 +41,8 @@ public class Localizer {
         bundle = ResourceBundle.getBundle(
             "org.apache.jasper.resources.LocalStrings");
         } catch (Throwable t) {
-            t.printStackTrace();
+        	 if(log.isErrorEnabled())
+     	    	log.error("Unexpected error", t);
         }
     }
 
