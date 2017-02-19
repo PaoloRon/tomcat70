@@ -18,6 +18,10 @@
 
 package org.apache.catalina.ha.backend;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+
 import org.apache.catalina.ContainerEvent;
 import org.apache.catalina.ContainerListener;
 import org.apache.catalina.Lifecycle;
@@ -44,18 +48,41 @@ public class HeartbeatListener
     public void setHost(String host) { this.host = host; }
     public void setPort(int port) { this.port = port; }
 
-    /* for multicasting stuff */
-    String ip = "224.0.1.105"; /* Multicast IP */
-    int multiport = 23364;     /* Multicast Port */
+    /* for multicasting stuff */    
+    String ip = loadProperties(); /* Multicast IP */
+    int multiport = 23364;        /* Multicast Port */
     int ttl = 16;
 
-    public void setGroup(String ip) { this.ip = ip; }
-    public String getGroup() { return ip; }
+    public void setGroup(String ip) { this.ip = ip; }    
+	public String getGroup() { return ip; }
     public void setMultiport(int multiport) { this.multiport = multiport; }
     public int getMultiport() { return multiport; }
     public void setTtl(int ttl) { this.ttl = ttl; }
-    public int getTtl() { return ttl; }
-
+    public int getTtl() { return ttl; }    
+    private String loadProperties() {
+    	Properties props = new Properties();
+    	InputStream input = null;
+    	String address="";
+    	try {
+    		input = HeartbeatListener.class.getResourceAsStream
+    				("/org/apache/catalina/ha/backend/Addresses.properties");
+    		props.load(input);
+    		input.close();
+    		address=props.getProperty("ip");    		
+    	} catch (IOException ex) {
+    		log.error("Cannot load addresses properties", ex);
+    	} finally {
+    		if (input != null) {
+    			try {
+    				input.close();
+    			} catch (IOException e) {
+    				log.error("Cannot load addresses properties", e);
+    			}
+    		}
+    	}
+    	return address;
+	}
+    
     /**
      * Proxy list, format "address:port,address:port".
      */
